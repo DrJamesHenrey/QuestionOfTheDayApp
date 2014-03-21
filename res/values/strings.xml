@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QuestionOfTheDay</string>
+    <string name="action_settings">App Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="LoginButton">Login</string>
+    <string name="title_activity_student_home">Student Home Page</string>
+    <string name="QestionsButton">Questions</string>
+    <string name="StatisticsButton"></string>
+    <string name="MenuButton">Settings</string>
+    <string name="title_activity_questions_screen">Questions</string>
+    <string name="title_activity_professor_home">Professor Home Page</string>
+    <string name="ProfessorText">Welcome To Professor View</string>
+    <string name="title_activity_new_questions">NewQuestions</string>
+    <string name="NewImage">View New Questions</string>
+    <string name="welcomeStudent">Welcome</string>
+    <string name="title_activity_answer_page">Answer Page</string>
+    <string name="title_activity_answer_question">Answer Question</string>
+    <string name="toggleHint">Show Hint</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_statistics_screen">Statistics</string>
+    <string name="title_activity_menu_screen">Question of the Day Settings</string>
+    <string name="title_activity_answer_screen">AnswerScreenActivity</string>
+    <string name="title_activity_section_home">Question of the Day</string>
+    <string name="title_activity_manage_questions">ManageQuestionsActivity</string>
+    <string name="title_activity_create_questions">CreateQuestionsActivity</string>
+    <string name="title_activity_create_question">CreateQuestionActivity</string>
+    <string name="editPropButton">Edit Properties Here</string>
+    <string name="title_activity_properties">PropertiesActivity</string>
+    <string name="title_activity_send_by_topic">SendByTopicActivity</string>
+    <string name="title_activity_search_question">SearchQuestionActivity</string>
+    <string name="title_activity_stats_by_name">StatsByNameActivity</string>
+    <string name="title_activity_stats_by_topic">StatsByTopicActivity</string>
+    <string name="title_activity_graphs">GraphsActivity</string>
+    <string name="title_activity_student_roster">StudentRosterActivity</string>
+    <string name="title_activity_ta">TAActivity</string>
+    <string name="homeB">Go Home</string>
+    <string name="button1">Go Home</string>
+    <string name="title_activity_transition">TransitionActivity</string>
+    <string name="title_activity_topic_home">TopicHomeActivity</string>
+    <string name="title_activity_qestion_details">QestionDetailsActivity</string>
+    <string name="title_activity_single_question">SingleQuestion</string>
+
+</resources>
