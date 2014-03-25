@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 
@@ -39,6 +40,40 @@ public class SettingsScreenActivity extends Activity {
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
+		
+		notifications.setOnClickListener(new OnClickListener() {
+
+		      @Override
+		      public void onClick(View v) {
+		                
+		        if (((CheckBox) v).isChecked()) {
+		                         
+		        }
+		        else 
+		        {
+		        	
+		        }
+		
+
+		      }
+		    });
+		
+		emails.setOnClickListener(new OnClickListener() {
+
+		      @Override
+		      public void onClick(View v) {
+		                
+		        if (((CheckBox) v).isChecked()) {
+		                         
+		        }
+		        else 
+		        {
+		        	
+		        }
+		
+
+		      }
+		    });
 		
 		changePassword.setOnClickListener(new View.OnClickListener() {
 			
