@@ -54,7 +54,9 @@ public class LoginActivity extends Activity {
 				//********************************************************************************************
 				//***************REMINDER TO BACH TO SET USRNAME AFTER HE DOES LOGIN
 				//******REMEMBER TO CHECK IF THE USER IS ENROLLED. I JUST ASSUMED HE IS. IF HE IS NOT. YOU WILL GET AN ERROR
-				String username = "dognean", firstName= "", lastName= "", eMail= "";
+				//String username = "dognean", firstName= "", lastName= "", eMail= "";
+				String username = "japanza13", firstName= "", lastName= "", eMail= "";
+				
 				int userType=0, id=0;
 				listOfSections = new ArrayList<String>();
 				
