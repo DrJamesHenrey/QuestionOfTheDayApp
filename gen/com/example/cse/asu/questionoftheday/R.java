@@ -1081,8 +1081,8 @@ containing a value of this type.
         public static final int dropdown=0x7f05000f;
         public static final int editPropButton=0x7f050094;
         public static final int editText1=0x7f050055;
-        public static final int editText2=0x7f050057;
-        public static final int editText3=0x7f050059;
+        public static final int editText2=0x7f050056;
+        public static final int editText3=0x7f050058;
         public static final int edit_query=0x7f050036;
         public static final int email=0x7f050097;
         public static final int end=0x7f050013;
@@ -1156,9 +1156,9 @@ containing a value of this type.
         public static final int textView17=0x7f050090;
         public static final int textView18=0x7f050091;
         public static final int textView19=0x7f050092;
-        public static final int textView2=0x7f050056;
+        public static final int textView2=0x7f050057;
         public static final int textView20=0x7f050093;
-        public static final int textView3=0x7f050058;
+        public static final int textView3=0x7f050059;
         public static final int textView4=0x7f05006c;
         public static final int textView5=0x7f050070;
         public static final int textView6=0x7f05006a;

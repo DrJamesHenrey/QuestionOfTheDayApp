@@ -1,6 +1,6 @@
 package cse.asu.questionoftheday;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; 
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class ChangePassWordActivity extends Activity {
 	private String cPassword, newPassword1, newPassword2;
 	private EditText cPassw, newPassw1, newPassw2;
 	private boolean correctCurrentPword;
-	
+	 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class ChangePassWordActivity extends Activity {
 		statisticsButton = (Button) findViewById(R.id.StatisticsButton);
 		menuButton = (Button) findViewById(R.id.MenuButton);
 		save = (Button) findViewById(R.id.save);
+		
 		cPassw = (EditText) findViewById(R.id.editText1);
 		newPassw1 = (EditText) findViewById(R.id.editText2);
 		newPassw2 = (EditText) findViewById(R.id.editText3);
@@ -66,8 +67,6 @@ public class ChangePassWordActivity extends Activity {
 				newPassword1 = newPassw1.getText().toString();
 				newPassword2 = newPassw2.getText().toString();
 
-				newPassword1 = newPassword1.replaceAll("\\s+",""); 
-				newPassword2 = newPassword2.replaceAll("\\s+",""); 
 				
 				try {
 					StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -105,7 +104,13 @@ public class ChangePassWordActivity extends Activity {
 						if(correctCurrentPword == false)
 						{
 							Toast.makeText(getApplicationContext(),
-			                        "Current Password incorrect. Please try again.",
+			                        "Current password incorrect. Please re-enter current password and try again.",
+			                        Toast.LENGTH_LONG).show();
+						}
+						else if(newPassword1.equals(cPassword))
+						{
+							Toast.makeText(getApplicationContext(),
+			                        "Current password is the same as new password. Changes not saved.",
 			                        Toast.LENGTH_LONG).show();
 						}
 						else
@@ -126,7 +131,7 @@ public class ChangePassWordActivity extends Activity {
 							if(json.equalsIgnoreCase("true"))
 							{
 								Toast.makeText(getApplicationContext(),
-				                        "Password Changed.",
+				                        "Password changed.",
 				                        Toast.LENGTH_LONG).show();
 								
 							}
@@ -138,7 +143,7 @@ public class ChangePassWordActivity extends Activity {
 					else
 					{
 						Toast.makeText(getApplicationContext(),
-		                        "New passwords do not match. Change not saved.",
+		                        "New passwords do not match. Change not saved. Please re-enter new password and try again.",
 		                        Toast.LENGTH_LONG).show();
 					}
 					
@@ -146,7 +151,9 @@ public class ChangePassWordActivity extends Activity {
 				}
 				catch (Exception e)
 				{
-					System.out.println(e.getMessage());
+					Toast.makeText(getApplicationContext(),
+	                        "Error. Please be sure your device has service or is connected to the internet.",
+	                        Toast.LENGTH_LONG).show();
 				}
 				
 				

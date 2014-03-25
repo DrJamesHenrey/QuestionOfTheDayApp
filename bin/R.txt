@@ -328,8 +328,8 @@ int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
 int id editPropButton 0x7f050094
 int id editText1 0x7f050055
-int id editText2 0x7f050057
-int id editText3 0x7f050059
+int id editText2 0x7f050056
+int id editText3 0x7f050058
 int id edit_query 0x7f050036
 int id email 0x7f050097
 int id end 0x7f050013
@@ -403,9 +403,9 @@ int id textView16 0x7f05008f
 int id textView17 0x7f050090
 int id textView18 0x7f050091
 int id textView19 0x7f050092
-int id textView2 0x7f050056
+int id textView2 0x7f050057
 int id textView20 0x7f050093
-int id textView3 0x7f050058
+int id textView3 0x7f050059
 int id textView4 0x7f05006c
 int id textView5 0x7f050070
 int id textView6 0x7f05006a
