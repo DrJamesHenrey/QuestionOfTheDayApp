@@ -41,5 +41,6 @@
     <string name="title_activity_topic_home">TopicHomeActivity</string>
     <string name="title_activity_qestion_details">QestionDetailsActivity</string>
     <string name="title_activity_single_question">SingleQuestion</string>
+    <string name="title_activity_change_pass_word">Change Password</string>
 
 </resources>

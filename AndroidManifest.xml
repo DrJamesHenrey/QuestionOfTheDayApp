@@ -124,6 +124,10 @@
             android:name="com.example.cse.asu.questionoftheday.SingleQuestion"
             android:label="@string/title_activity_single_question" >
         </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.ChangePassWordActivity"
+            android:label="@string/title_activity_change_pass_word" >
+        </activity>
     </application>
 
 </manifest>
