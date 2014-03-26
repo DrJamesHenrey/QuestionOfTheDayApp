@@ -49,8 +49,8 @@ public class ChangePassWordActivity extends Activity {
 		menuButton = (Button) findViewById(R.id.MenuButton);
 		save = (Button) findViewById(R.id.save);
 		
-		cPassw = (EditText) findViewById(R.id.editText1);
-		newPassw1 = (EditText) findViewById(R.id.editText2);
+		cPassw = (EditText) findViewById(R.id.UserNameTextField);
+		newPassw1 = (EditText) findViewById(R.id.PasswordTextField);
 		newPassw2 = (EditText) findViewById(R.id.editText3);
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");

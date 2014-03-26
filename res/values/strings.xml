@@ -42,5 +42,9 @@
     <string name="title_activity_qestion_details">QestionDetailsActivity</string>
     <string name="title_activity_single_question">SingleQuestion</string>
     <string name="title_activity_change_pass_word">Change Password</string>
+    <string name="login_activity_username_label">Username:</string>
+    <string name="login_activity_password_label">Password:</string>
+    <string name="login_activity_username_hint">User</string>
+    <string name="login_activity_password_hint">Password</string>
 
 </resources>

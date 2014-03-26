@@ -57,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/UserNameTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
@@ -69,7 +69,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/PasswordTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -99,8 +99,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/UserNameTextField"
+        android:layout_below="@+id/UserNameTextField"
         android:layout_marginTop="31dp"
         android:text="New Password"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -109,8 +109,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/PasswordTextField"
+        android:layout_below="@+id/PasswordTextField"
         android:layout_marginTop="32dp"
         android:text="Verify New Password"
         android:textAppearance="?android:attr/textAppearanceMedium" />
