@@ -103,7 +103,7 @@ public class LoginActivity extends Activity {
 			                        "Username or Password is incorrect.", Toast.LENGTH_LONG).show();	
 						}
 						
-						else // It matched
+						else // It matched, now grab all the user info, and jump into the next screen
 						{
 							try
 							{
