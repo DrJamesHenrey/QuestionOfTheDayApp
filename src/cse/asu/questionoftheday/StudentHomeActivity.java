@@ -54,7 +54,7 @@ public class StudentHomeActivity extends Activity
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
 		
-		welcomeStudent.setText("Welcome " + user.getFirstName() +" " + user.getLastName()+ "to \nSection " + listOfSections.get(0) +" Question of the Day");
+		welcomeStudent.setText("Welcome " + user.getFirstName() +" " + user.getLastName()+ " to \nSection " + listOfSections.get(0) +" Question of the Day");
 		
 		
 		questionButton.setOnClickListener(new View.OnClickListener() {
