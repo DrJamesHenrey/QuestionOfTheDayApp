@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 public class StatQuestion implements Parcelable{
 	
-	private String topic, prompt, answer, points, correct, explanation;
+	private String prompt, answer, correct;
 	private int id;
 	
 	@Override

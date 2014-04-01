@@ -39,11 +39,13 @@ import android.widget.TextView;
 public class StatisticsScreenActivity extends Activity {
 	
 	TextView questionTit;
+	int userid;
 	ArrayList<StatQuestion> questions;
 	ArrayList<String> listOfSections;
 	private Button questionButton;
 	private Button statisticsButton;
 	private Button menuButton;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class StatisticsScreenActivity extends Activity {
 		menuButton = (Button) findViewById(R.id.MenuButton);
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
+		userid = user.getID();
 		listOfSections = new ArrayList<String>(user.getListOfSections());
 		
 		questionButton.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +94,7 @@ public class StatisticsScreenActivity extends Activity {
 			}
 		});
 		
-		//////////////////// Where code starts /////////////////////////////////////
+		////////////////////  code starts /////////////////////////////////////
 		
 		questionTit.setText("Statistics for Section "+listOfSections.get(0));
 		
@@ -108,9 +111,9 @@ public class StatisticsScreenActivity extends Activity {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 			HttpClient defaultClient =  new DefaultHttpClient();
-			HttpPost post = new HttpPost();			
-			////THIS NEEDS TO BE CHANGED TO GET MY CODE
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile_grades/getGradesforStudent" + listOfSections.get(0))); 
+			HttpPost post = new HttpPost();
+
+			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getGradesforStudent/" + listOfSections.get(0) + "/"+userid)); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
@@ -125,13 +128,13 @@ public class StatisticsScreenActivity extends Activity {
 			for(int i =0; i< array.length(); i++)
 			{
 				JSONObject object = (JSONObject) array.get(i);
-				id = Integer.parseInt((String) object.get("id"));
+				id = Integer.parseInt((String) object.get("questionID"));
 				prompt = (String) object.get("prompt") + "";
-				correct = (String) object.get("points") + ""; 
+				correct = (String) object.get("correct") + ""; 
 				answer = (String) object.get("answer") + "";
 				
 				StatQuestion question = new StatQuestion(id, prompt, correct, answer);
-				questions.add(question);
+				questions.add(question);		
 			}
 		}
 		catch(Exception e){
@@ -148,6 +151,17 @@ public class StatisticsScreenActivity extends Activity {
 			questionTit.setText("You have not answered any question for this section. Please try again later.");
 			questionTit.setGravity(Gravity.CENTER);
 		}
+		else{
+			int correct = 0;
+			for(int i =0; i < questions.size(); i++){
+				if(Integer.parseInt(questions.get(i).getCorrect()) == 1){
+					correct++;
+				}
+			}
+			float percent = ((float)correct/(float)questions.size()*100);
+			questionTit.setText("You have answered: "+ correct +" out of "+ questions.size() + " questions correctly.\n Your grade is: " + percent +"%" );
+			questionTit.setTextSize(8);
+		}
 		
 		for(int row = 0; row < questions.size(); row++)
 		{
@@ -160,12 +174,23 @@ public class StatisticsScreenActivity extends Activity {
 			tableRow.addView(button);
 			
 			String temp;
-			if(questions.get(row).getPrompt().length() >55)
+			if(questions.get(row).getPrompt().length() >40)
 			{
-				temp = questions.get(row).getPrompt().substring(0, 55) + "...";
+				if(Integer.parseInt(questions.get(row).getCorrect()) == 1){
+					temp = "100%   " + questions.get(row).getPrompt().substring(0, 40) + "...";
+				}
+				else{
+					temp = "0%   " + questions.get(row).getPrompt().substring(0, 40) + ".. .";
+				}
 			}
-			else
-				temp = questions.get(row).getPrompt();
+			else{
+				if(Integer.parseInt(questions.get(row).getCorrect()) == 1){
+					temp = "100%  " + questions.get(row).getPrompt();
+				}
+				else{
+					temp = "0%  " + questions.get(row).getPrompt();
+				}
+			}
 			
 			button.setTextSize(8);
 			button.setText(questions.get(row).getID() + ". " + temp);
