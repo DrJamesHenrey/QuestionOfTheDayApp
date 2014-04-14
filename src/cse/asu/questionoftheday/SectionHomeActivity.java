@@ -1,6 +1,16 @@
 package cse.asu.questionoftheday;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.ArrayList;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.example.cse.asu.questionoftheday.R;
 import com.example.cse.asu.questionoftheday.R.layout;
@@ -8,9 +18,11 @@ import com.example.cse.asu.questionoftheday.R.menu;
 
 import cse.asu.questionoftheday.model.Question;
 import cse.asu.questionoftheday.model.Section;
+import cse.asu.questionoftheday.model.StatQuestion;
 import cse.asu.questionoftheday.model.User;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -30,6 +42,7 @@ import android.widget.TextView;
 public class SectionHomeActivity extends Activity {
 	
 	TextView sectionHomeText, text1, text2, text3, text4, text5, text6, text7, text8, text9, text10;
+	ArrayList<String> studentlist;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,14 +123,12 @@ public class SectionHomeActivity extends Activity {
 		});
 		
 		sButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View currentView) 
 			{
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setTitle("Statistics Menu");
 				builder.setItems(new CharSequence[] {"Statistics By Student Name", "Statistics By Topic", "Statistical Graphs"}, new DialogInterface.OnClickListener() {
-					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						switch (which){
@@ -125,13 +136,16 @@ public class SectionHomeActivity extends Activity {
 							Intent myIntent1 = new Intent(context, StatsByNameActivity.class);
 							myIntent1.putExtra("USER_KEY", user);
 							myIntent1.putExtra("SECTION_KEY", section);
-							startActivity(myIntent1);
+							statByStudent(user, section);
+
+							//startActivity(myIntent1);
 							break;
 						case 1:
 							Intent myIntent2 = new Intent(context, StatsByTopicActivity.class);
 							myIntent2.putExtra("USER_KEY", user);
 							myIntent2.putExtra("SECTION_KEY", section);
-							startActivity(myIntent2);
+							statByTopic(user, section);
+							//startActivity(myIntent2);
 							break;
 						case 2:
 							Intent myIntent3 = new Intent(context, GraphsActivity.class);
@@ -144,6 +158,9 @@ public class SectionHomeActivity extends Activity {
 					}
 				});
 				builder.create().show();
+				
+
+				
 			}
 		});
 		
@@ -176,6 +193,8 @@ public class SectionHomeActivity extends Activity {
 					}
 				});
 				builder.create().show();
+				
+				
 			}
 		});
 		
@@ -235,6 +254,139 @@ public class SectionHomeActivity extends Activity {
 		
 		
 	}
+	public void statByStudent( User user, Section section){
+///////////////////////////////////////
+
+		
+		final Context context = this;
+		final User user2 = user;
+		final Section section2 = section;
+		
+
+
+
+			try{
+				studentlist = new ArrayList<String>();
+				StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+				StrictMode.setThreadPolicy(policy);
+				HttpClient defaultClient =  new DefaultHttpClient();
+				HttpPost post = new HttpPost();
+
+				post.setURI(new URI("http://199.180.255.173/index.php/mobile/getStudentList/" +  section2.getSectionID())); 
+				HttpResponse httpResponse = defaultClient.execute(post);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+				String json = ""; 
+				String temp = "";
+
+				while ((temp = reader.readLine()) != null)
+				{
+					json += temp;
+				}
+
+				JSONArray array = new JSONArray(json);
+				for(int i =0; i< array.length(); i++)
+				{
+					String s ="";
+					JSONObject object = (JSONObject) array.get(i);
+					s = (String) object.get("username") + "";
+					
+
+					studentlist.add(s);		
+				}
+			}
+			catch(Exception e){
+
+			}
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			builder.setTitle("Students in Course");
+			final CharSequence[] users = studentlist.toArray(new CharSequence[studentlist.size()]);
+
+
+			builder.setItems(users, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+
+
+					Intent myIntent1 = new Intent(context, StatisticsScreenActivity.class);
+					myIntent1.putExtra("USER_KEY", user2);
+					myIntent1.putExtra("SECTION_KEY", section2);
+					myIntent1.putExtra("STUDENT_KEY", studentlist.get(which));
+					startActivity(myIntent1);
+
+				}
+			});
+			builder.create().show();
+
+		
+//////////////////////////////////////////////;
+	}
+	
+	public void statByTopic( User user, Section section){
+///////////////////////////////////////
+
+
+		final Context context = this;
+		final User user2 = user;
+		final Section section2 = section;
+
+
+
+
+		try{
+			studentlist = new ArrayList<String>();
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+			HttpClient defaultClient =  new DefaultHttpClient();
+			HttpPost post = new HttpPost();
+			
+			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getStudentList/" +  section2.getSectionID())); 
+			HttpResponse httpResponse = defaultClient.execute(post);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+			String json = ""; 
+			String temp = "";
+
+			while ((temp = reader.readLine()) != null)
+			{
+				json += temp;
+			}
+
+			JSONArray array = new JSONArray(json);
+			for(int i =0; i< array.length(); i++)
+			{
+				String s ="";
+				JSONObject object = (JSONObject) array.get(i);
+				s = (String) object.get("topic") + "";	
+
+
+				studentlist.add(s);		
+			}
+		}
+		catch(Exception e){
+
+		}
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("Topics in Course");
+		final CharSequence[] users = studentlist.toArray(new CharSequence[studentlist.size()]);
+		
+
+		builder.setItems(users, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+
+				Intent myIntent2 = new Intent(context, StatsByTopicActivity.class);
+				myIntent2.putExtra("USER_KEY", user2);
+				myIntent2.putExtra("SECTION_KEY", section2);
+				myIntent2.putExtra("TOPIC_KEY", studentlist.get(which));
+				startActivity(myIntent2);
+
+			}
+		});
+		builder.create().show();
+
+
+//////////////////////////////////////////////;
+}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

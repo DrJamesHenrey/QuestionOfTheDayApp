@@ -129,6 +129,10 @@
             android:name="cse.asu.questionoftheday.ChangePassWordActivity"
             android:label="@string/title_activity_change_pass_word" >
         </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.SingleQuestionStatsActivity"
+            android:label="@string/title_activity_single_question" >
+        </activity>
     </application>
 
 </manifest>

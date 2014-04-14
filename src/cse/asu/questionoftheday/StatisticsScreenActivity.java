@@ -200,7 +200,7 @@ public class StatisticsScreenActivity extends Activity {
 			button.setOnClickListener(new View.OnClickListener() {
 				
 				public void onClick(View v) {
-					Intent myIntent = new Intent(v.getContext(), AnswerPageActivity.class);
+					Intent myIntent = new Intent(v.getContext(), SingleQuestionStatsActivity.class);
 					myIntent.putExtra("USER_KEY", user);
 					myIntent.putExtra("QUESTION_KEY", questions.get(index));
 					startActivity(myIntent);
