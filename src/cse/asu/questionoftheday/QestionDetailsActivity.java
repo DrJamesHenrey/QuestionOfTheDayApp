@@ -255,7 +255,25 @@ public class QestionDetailsActivity extends Activity {
 				}
 				catch (Exception e)
 				{
-					System.out.println(e.getMessage());
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							context);
+
+						// set title
+						alertDialogBuilder.setTitle("Connection Error");
+
+						// set dialog message
+						alertDialogBuilder
+							.setMessage("Please check your internet connection and try again")
+							.setCancelable(false)
+							.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,int id) {
+									
+								}
+							  });
+
+							AlertDialog alertDialog = alertDialogBuilder.create();
+
+							alertDialog.show();
 				}	
 
 				Intent myIntent = new Intent(currentView.getContext(), TransitionActivity.class);

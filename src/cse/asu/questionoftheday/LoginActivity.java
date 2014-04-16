@@ -37,9 +37,10 @@ public class LoginActivity extends Activity {
 	private Button loginButton;
 	private EditText usernameTextField;
 	private EditText passwordTextField;
-	
+	final Context context = this;
 	public User user;
 	ArrayList<String> listOfSections;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +57,7 @@ public class LoginActivity extends Activity {
 			
 			@Override
 			public void onClick(View currentView) {
-				//********************************************************************************************
-				//***************REMINDER TO BACH TO SET USRNAME AFTER HE DOES LOGIN
-				//******REMEMBER TO CHECK IF THE USER IS ENROLLED. I JUST ASSUMED HE IS. IF HE IS NOT. YOU WILL GET AN ERROR
 				
-				
-				
-				//String username = "dognean", firstName= "", lastName= "", eMail= "";
-				//String username = "japanza13", firstName= "", lastName= "", eMail= "";
 				String username = usernameTextField.getText().toString(), firstName = "", lastName = "", eMail = "";
 				String password = passwordTextField.getText().toString();
 				
@@ -105,8 +99,7 @@ public class LoginActivity extends Activity {
 						
 						else // It matched, now grab all the user info, and jump into the next screen
 						{
-							try
-							{
+							
 								policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 							
 								StrictMode.setThreadPolicy(policy);
@@ -159,11 +152,7 @@ public class LoginActivity extends Activity {
 								}
 								if(json.equalsIgnoreCase("true"))
 									userType = 2;
-							}
-							catch (Exception e)
-							{
-								System.out.println(e.getMessage());
-							}
+						
 							
 							User user = new User(id, username, firstName, lastName, eMail, userType, listOfSections);
 							
@@ -187,86 +176,28 @@ public class LoginActivity extends Activity {
 					}
 					catch (Exception e)
 					{
-						System.out.println(e.getMessage());
+						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+								context);
+				 
+							// set title
+							alertDialogBuilder.setTitle("Connection Error");
+				 
+							// set dialog message
+							alertDialogBuilder
+								.setMessage("Please check your internet connection and try again")
+								.setCancelable(false)
+								.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										
+									}
+								  });
+				 
+								AlertDialog alertDialog = alertDialogBuilder.create();
+				 
+								alertDialog.show();
 					}
 				}
-				// Old code that just logs in based on username
-				/*try {
-					StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-					StrictMode.setThreadPolicy(policy);
-					HttpClient defaultClient =  new DefaultHttpClient();
-					HttpPost post = new HttpPost();					
-					post.setURI(new URI("http://199.180.255.173/index.php/mobile/getUserInfo/" + username));
-					HttpResponse httpResponse = defaultClient.execute(post);
-					BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
-					String json = ""; 
-					String temp = "";
-					
-					while ((temp = reader.readLine()) != null)
-					{
-						json += temp;
-					}
-					
-					json = json.substring(1, json.length()-1);
-					
-					JSONArray array = new JSONArray(json);
-					
-					for(int i =0; i< array.length(); i++)
-					{
-						JSONObject object = (JSONObject) array.get(i);
-
-						listOfSections.add((String) object.get("sectionID"));
-						if(i==0)
-						{
-							firstName = (String) object.get("firstName");
-							lastName = (String) object.get("lastName");
-							username = (String) object.get("username");
-							eMail = (String) object.get("email");
-							id = Integer.parseInt((String) object.get("userID"));
-						}
-					}
-					
-					post.setURI(new URI("http://199.180.255.173/index.php/mobile/isProfessor/" + username));
-					HttpResponse htpR = defaultClient.execute(post);
-					BufferedReader read = new BufferedReader(new InputStreamReader(htpR.getEntity().getContent(), "UTF-8"));
-					json = ""; 
-					temp = "";
-					
-					while ((temp = read.readLine()) != null)
-					{
-						json += temp;
-					}
-					if(json.equalsIgnoreCase("false"))
-					{
-						userType = 1;
-						
-					}
-					if(json.equalsIgnoreCase("true"))
-						userType = 2;
-					
-				}
-				catch (Exception e)
-				{
-					System.out.println(e.getMessage());
-				}	
-				
-				User user = new User(id, username, firstName, lastName, eMail, userType, listOfSections);
-				
-				if(user.getUserType() == 1)
-				{
-					Intent myIntent = new Intent(currentView.getContext(), StudentHomeActivity.class);
-					myIntent.putExtra("USER_KEY", user);
-					startActivity(myIntent);
-					finish(); //JON DONT REMOVE THIS. THIS WONT ALLOW STUDENT TO GO BACK TO LOGIN
-				}
-				if(user.getUserType() == 2)
-				{
-					Intent myIntent = new Intent(currentView.getContext(), ProfessorHomeActivity.class);
-					myIntent.putExtra("USER_KEY", user);
-					startActivity(myIntent);
-					finish(); //JON DONT REMOVE THIS. THIS WONT ALLOW STUDENT TO GO BACK TO LOGIN
-				} */
-				
+								
 			}
 		});
     }
