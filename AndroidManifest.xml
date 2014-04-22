@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:debuggable="true"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Cse" >
@@ -45,10 +45,12 @@
             android:name="cse.asu.questionoftheday.AnswerPageActivity"
             android:label="@string/title_activity_answer_page" >
         </activity>
-        <!-- <activity
+        <!--
+        <activity
             android:name="cse.asu.questionoftheday.AnswerPageActivity"
             android:label="@string/title_activity_answer_page" >
-        </activity> -->
+        </activity>
+        -->
         <activity
             android:name="com.example.cse.asu.questionoftheday.AnswerQuestion"
             android:label="@string/title_activity_answer_question" >
@@ -132,6 +134,10 @@
         <activity
             android:name="cse.asu.questionoftheday.SingleQuestionStatsActivity"
             android:label="@string/title_activity_single_question" >
+        </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.TopicSendActivity"
+            android:label="@string/title_activity_topic_send" >
         </activity>
     </application>
 

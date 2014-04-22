@@ -1035,8 +1035,8 @@ containing a value of this type.
         public static final int TopicHomeText=0x7f0500a7;
         public static final int TopicLayout=0x7f050077;
         public static final int TopicText=0x7f050076;
-        public static final int TransitionButton=0x7f0500aa;
-        public static final int TransitionText=0x7f0500a9;
+        public static final int TransitionButton=0x7f0500b3;
+        public static final int TransitionText=0x7f0500b2;
         public static final int UserNameTextField=0x7f050055;
         public static final int a=0x7f050047;
         public static final int aField=0x7f05006d;
@@ -1055,7 +1055,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f05002f;
         public static final int action_mode_bar_stub=0x7f05002e;
         public static final int action_mode_close_button=0x7f050022;
-        public static final int action_settings=0x7f0500ab;
+        public static final int action_settings=0x7f0500b4;
         public static final int activity_chooser_view_content=0x7f050023;
         public static final int always=0x7f05000b;
         public static final int answerA2=0x7f05008b;
@@ -1069,6 +1069,7 @@ containing a value of this type.
         public static final int bRadio=0x7f050067;
         public static final int bText=0x7f05007f;
         public static final int beginning=0x7f050011;
+        public static final int button1=0x7f0500b1;
         public static final int c=0x7f050049;
         public static final int cField=0x7f05006b;
         public static final int cRadio=0x7f050068;
@@ -1087,6 +1088,7 @@ containing a value of this type.
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
         public static final int editPropButton=0x7f05009f;
+        public static final int editText1=0x7f0500a9;
         public static final int editText3=0x7f050058;
         public static final int edit_query=0x7f050036;
         public static final int email=0x7f0500a2;
@@ -1097,6 +1099,7 @@ containing a value of this type.
         public static final int explanationButton=0x7f05004d;
         public static final int explanationField=0x7f05005f;
         public static final int explanationText=0x7f050084;
+        public static final int friday=0x7f0500ae;
         public static final int gridLayout1=0x7f050050;
         public static final int hintField=0x7f050060;
         public static final int hintText=0x7f05004b;
@@ -1115,6 +1118,7 @@ containing a value of this type.
         public static final int list_item=0x7f050027;
         public static final int messageText=0x7f050095;
         public static final int middle=0x7f050012;
+        public static final int monday=0x7f0500aa;
         public static final int never=0x7f050009;
         public static final int newQs=0x7f05005c;
         public static final int none=0x7f050010;
@@ -1134,6 +1138,7 @@ containing a value of this type.
         public static final int retryB=0x7f05004c;
         public static final int right_container=0x7f050032;
         public static final int right_icon=0x7f050033;
+        public static final int saturday=0x7f0500af;
         public static final int save=0x7f05005a;
         public static final int scrollView1=0x7f050042;
         public static final int scrollView2=0x7f050086;
@@ -1155,6 +1160,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001c;
         public static final int submit=0x7f050044;
         public static final int submit_area=0x7f05003f;
+        public static final int sunday=0x7f0500b0;
         public static final int tabMode=0x7f050002;
         public static final int tableForButtons=0x7f050079;
         public static final int textView1=0x7f050054;
@@ -1175,14 +1181,17 @@ containing a value of this type.
         public static final int textView7=0x7f050065;
         public static final int textView8=0x7f050064;
         public static final int textView9=0x7f050063;
+        public static final int thursday=0x7f0500ad;
         public static final int title=0x7f050029;
         public static final int title_container=0x7f050030;
         public static final int toggleHint=0x7f050043;
         public static final int top_action_bar=0x7f05001e;
         public static final int topicField=0x7f05005d;
         public static final int topicText=0x7f050061;
+        public static final int tuesday=0x7f0500ab;
         public static final int up=0x7f05001f;
         public static final int useLogo=0x7f050003;
+        public static final int wednesday=0x7f0500ac;
         public static final int welcomeStudent=0x7f0500a4;
         public static final int withText=0x7f05000c;
     }
@@ -1262,9 +1271,10 @@ containing a value of this type.
         public static final int activity_student_roster=0x7f03002f;
         public static final int activity_ta=0x7f030030;
         public static final int activity_topic_home=0x7f030031;
-        public static final int activity_transition=0x7f030032;
-        public static final int answer_page=0x7f030033;
-        public static final int support_simple_spinner_dropdown_item=0x7f030034;
+        public static final int activity_topic_send=0x7f030032;
+        public static final int activity_transition=0x7f030033;
+        public static final int answer_page=0x7f030034;
+        public static final int support_simple_spinner_dropdown_item=0x7f030035;
     }
     public static final class menu {
         public static final int answer_page=0x7f0c0000;
@@ -1293,7 +1303,8 @@ containing a value of this type.
         public static final int student_roster=0x7f0c0017;
         public static final int ta=0x7f0c0018;
         public static final int topic_home=0x7f0c0019;
-        public static final int transition=0x7f0c001a;
+        public static final int topic_send=0x7f0c001a;
+        public static final int transition=0x7f0c001b;
     }
     public static final class string {
         public static final int LoginButton=0x7f0a0010;
@@ -1378,6 +1389,7 @@ containing a value of this type.
         public static final int title_activity_student_roster=0x7f0a002d;
         public static final int title_activity_ta=0x7f0a002e;
         public static final int title_activity_topic_home=0x7f0a0032;
+        public static final int title_activity_topic_send=0x7f0a003a;
         public static final int title_activity_transition=0x7f0a0031;
         public static final int toggleHint=0x7f0a001d;
         public static final int welcomeStudent=0x7f0a001a;

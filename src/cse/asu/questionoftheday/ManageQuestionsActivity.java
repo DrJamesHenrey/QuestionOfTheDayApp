@@ -193,7 +193,7 @@ public class ManageQuestionsActivity extends Activity {
 		
 		if(topics.size() == 0)
 		{
-			topicText.setText("There are no questions registered for this section");
+			topicText.setText("There are no questions created for this section");
 			topicText.setGravity(Gravity.CENTER);
 		}
 		for (int i=0; i<topics.size(); i++)

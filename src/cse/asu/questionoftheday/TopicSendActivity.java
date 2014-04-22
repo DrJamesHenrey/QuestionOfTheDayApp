@@ -16,6 +16,7 @@ import com.example.cse.asu.questionoftheday.R;
 import com.example.cse.asu.questionoftheday.R.layout;
 import com.example.cse.asu.questionoftheday.R.menu;
 
+import cse.asu.questionoftheday.model.Question;
 import cse.asu.questionoftheday.model.Section;
 import cse.asu.questionoftheday.model.User;
 
@@ -26,44 +27,54 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class SendByTopicActivity extends Activity {
+public class TopicSendActivity extends Activity {
 
-	LinearLayout topicLayout;
-	ArrayList<String> topics;
-	Section section;
+	String topic;
 	User user;
+	Section section;
 	TextView topicText;
 	final Context context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_send_by_topic);
-		
+		setContentView(R.layout.activity_topic_send);
 		setTitle("Question of the Day");
 		
-		topicText = (TextView) findViewById(R.id.TopicText);
+		topicText = (TextView) findViewById(R.id.TopicHomeText);
 		Button qButton = (Button) findViewById(R.id.QButton);
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
-		topicLayout = (LinearLayout) findViewById(R.id.TopicLayout);
+		Button save = (Button) findViewById(R.id.button1);
+		CheckBox m  = (CheckBox) findViewById(R.id.monday);
+		CheckBox t  = (CheckBox) findViewById(R.id.tuesday);
+		CheckBox w  = (CheckBox) findViewById(R.id.wednesday);
+		CheckBox th  = (CheckBox) findViewById(R.id.thursday);
+		CheckBox f  = (CheckBox) findViewById(R.id.friday);
+		CheckBox s  = (CheckBox) findViewById(R.id.saturday);
+		CheckBox su  = (CheckBox) findViewById(R.id.sunday);
+		EditText startDate = (EditText) findViewById(R.id.editText1);
+		final Context context = this;
+
 		
 		user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
 
 		section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
-		topics = new ArrayList<String>();
+		topic = (String) getIntent().getExtras().getString("TOPIC_KEY");
 		
-		topicText.setText("Topics for " + section.getSectionID());
-		topicText.setTextSize(24);
+		topicText.setText("Topic: " + topic);
+		topicText.setTextSize(18);
 		
 		qButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -180,102 +191,15 @@ public class SendByTopicActivity extends Activity {
 			}
 		});
 		
-		instantiateTopics();
-		populateButtons();
-		
+
 	}
 
-	private void populateButtons() {
-		
-		if(topics.size() == 0)
-		{
-			topicText.setText("There are no questions created for this section");
-			topicText.setGravity(Gravity.CENTER);
-		}
-		for (int i=0; i<topics.size(); i++)
-		{
-			final int index = i;
-			Button button = new Button(this);
-			button.setText(topics.get(i));
-			button.setTextSize(18);
-			button.setGravity(Gravity.CENTER);
-			button.setTextAppearance(this, R.style.Theme_Cse);
-			topicLayout.addView(button);
-			
-			button.setOnClickListener(new View.OnClickListener() {
-				
-				public void onClick(View v) {
-					Intent myIntent = new Intent(v.getContext(), TopicSendActivity.class);
-					myIntent.putExtra("USER_KEY", user);
-					myIntent.putExtra("SECTION_KEY", section);
-					myIntent.putExtra("TOPIC_KEY", topics.get(index));
-					startActivity(myIntent);
-				}
-			});
-		}
-		
-		
-	}
 
-	private void instantiateTopics() {
-		
-		try {
-
-			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-			StrictMode.setThreadPolicy(policy);
-			HttpClient defaultClient =  new DefaultHttpClient();
-			HttpPost post = new HttpPost();
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getTopics/" + section.getSectionID()));
-			HttpResponse httpResponse = defaultClient.execute(post);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
-			String json = ""; 
-			String temp = "";
-			
-			while ((temp = reader.readLine()) != null)
-			{
-				json += temp;
-			}
-			
-			JSONArray array = new JSONArray(json);
-			for(int i =0; i< array.length(); i++)
-			{
-				JSONObject object = (JSONObject) array.get(i);
-				
-				topics.add((String) object.get("topic") );
-			}
-			
-		}
-		catch (Exception e)
-		{
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					context);
-
-				// set title
-				alertDialogBuilder.setTitle("Connection Error");
-
-				// set dialog message
-				alertDialogBuilder
-					.setMessage("Please check your internet connection and try again")
-					.setCancelable(false)
-					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							startActivity(intent);
-						}
-					  });
-
-					AlertDialog alertDialog = alertDialogBuilder.create();
-
-					alertDialog.show();
-		}	
-		
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.manage_questions, menu);
+		getMenuInflater().inflate(R.menu.topic_home, menu);
 		return true;
 	}
 
