@@ -1,6 +1,6 @@
-package cse.asu.questionoftheday;
+package cse.asu.questionoftheday; 
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; 
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
@@ -27,6 +27,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+
+
+
 public class SettingsScreenActivity extends Activity {
 	
 	private Button questionButton;
@@ -41,6 +44,8 @@ public class SettingsScreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings_screen);
+		
+		
 		
 		questionButton = (Button) findViewById(R.id.QuestionsButton);
 		statisticsButton = (Button) findViewById(R.id.StatisticsButton);
@@ -82,8 +87,48 @@ public class SettingsScreenActivity extends Activity {
 				//getsEmails = true;
 				emails.setChecked(true);
 			}
+			
+			
+		}
+		catch (Exception e)
+		{
+			Toast.makeText(getApplicationContext(),
+                    "Error. Please be sure your device has service or is connected to the internet.",
+                    Toast.LENGTH_LONG).show();
+		}
+		
+		try {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+			HttpClient defaultClient =  new DefaultHttpClient();
+			HttpPost post = new HttpPost();
+			
+			String temp1 = "http://199.180.255.173/index.php/mobile/notifications/" + user.getUsername();
+			
+			post.setURI(new URI(temp1));
+			HttpResponse httpResponse = defaultClient.execute(post);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+			String json = ""; 
+			String temp = "";
+			
+			while ((temp = reader.readLine()) != null)
+			{
+				json += temp;
+			}
 
-
+			if(json.equalsIgnoreCase("false"))
+			{
+				//getsEmails = false;
+				notifications.setChecked(false);
+				
+			}
+			else if(json.equalsIgnoreCase("true"))
+			{
+				//getsEmails = true;
+				notifications.setChecked(true);
+			}
+			
+			
 		}
 		catch (Exception e)
 		{
@@ -93,26 +138,112 @@ public class SettingsScreenActivity extends Activity {
 		}
 		
 		
-		
-		/*notifications.setOnClickListener(new OnClickListener() {
 
-		      @Override
-		      public void onClick(View v) {
-		                
-		        if (((CheckBox) v).isChecked()) {
-		        	
-		        	
-		                         
-		        }
-		        else 
-		        {
-		        	
-		        	
-		        }
-		
+			notifications.setOnClickListener(new OnClickListener() {
 
-		      }
-		    });*/
+			      @Override
+			      public void onClick(View v) {
+			                
+			        if (((CheckBox) v).isChecked()) 
+			        {
+			        	
+			        	try {
+			    			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			    			StrictMode.setThreadPolicy(policy);
+			    			HttpClient defaultClient =  new DefaultHttpClient();
+			    			HttpPost post = new HttpPost();
+			    			int n = 1;
+			    			String temp1 = "http://199.180.255.173/index.php/mobile/changeNoteSettings/" + user.getUsername() + "/" + n;
+			    			
+			    			post.setURI(new URI(temp1));
+			    			HttpResponse httpResponse = defaultClient.execute(post);
+			    			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+			    			String json = ""; 
+			    			String temp = "";
+			    			
+			    			while ((temp = reader.readLine()) != null)
+			    			{
+			    				json += temp;
+			    			}
+
+			    			if(json.equalsIgnoreCase("false"))
+			    			{
+			    				
+			    				Toast.makeText(getApplicationContext(),
+				                        "Error.",
+				                        Toast.LENGTH_LONG).show();
+			    				
+			    			}
+			    			else if (json.equalsIgnoreCase("true"))
+			    			{
+			    				
+			    				Toast.makeText(getApplicationContext(),
+				                        "You will recieve notifications when a new question is sent.",
+				                        Toast.LENGTH_LONG).show();
+			    			}
+
+
+			    		}
+			    		catch (Exception e)
+			    		{
+			    			Toast.makeText(getApplicationContext(),
+			                        "Error. Please be sure your device has service or is connected to the internet.",
+			                        Toast.LENGTH_LONG).show();
+			    		}
+
+			                         
+			        }
+			        else 
+			        {
+			        	try {
+			    			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			    			StrictMode.setThreadPolicy(policy);
+			    			HttpClient defaultClient =  new DefaultHttpClient();
+			    			HttpPost post = new HttpPost();
+			    			int n = 0;
+			    			String temp1 = "http://199.180.255.173/index.php/mobile/changeNoteSettings/" + user.getUsername() + "/" + n;
+			    			
+			    			post.setURI(new URI(temp1));
+			    			HttpResponse httpResponse = defaultClient.execute(post);
+			    			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+			    			String json = ""; 
+			    			String temp = "";
+			    			
+			    			while ((temp = reader.readLine()) != null)
+			    			{
+			    				json += temp;
+			    			}
+
+			    			if(json.equalsIgnoreCase("false"))
+			    			{
+			    				
+			    				Toast.makeText(getApplicationContext(),
+				                        "You will not recieve notifications when a new question is sent.",
+				                        Toast.LENGTH_LONG).show();
+			    				
+			    			}
+			    			else if(json.equalsIgnoreCase("true"))
+			    			{
+			    				Toast.makeText(getApplicationContext(),
+				                        "Error",
+				                        Toast.LENGTH_LONG).show();
+			    			}
+
+
+
+			    		}
+			    		catch (Exception e)
+			    		{
+			    			Toast.makeText(getApplicationContext(),
+			                        "Error. Please be sure your device has service or is connected to the internet.",
+			                        Toast.LENGTH_LONG).show();
+			    		}
+			        	
+			        }
+			
+
+			      }
+			    });
 		
 		emails.setOnClickListener(new OnClickListener() {
 
@@ -269,5 +400,8 @@ public class SettingsScreenActivity extends Activity {
 		getMenuInflater().inflate(R.menu.menu_screen, menu);
 		return true;
 	}
+	
+
 
 }
+
