@@ -36,6 +36,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TopicSendActivity extends Activity {
 
@@ -44,6 +45,15 @@ public class TopicSendActivity extends Activity {
 	Section section;
 	TextView topicText;
 	final Context context = this;
+	Button save;
+	CheckBox m;
+	CheckBox t;
+	CheckBox w;
+	CheckBox th;
+	CheckBox f;
+	CheckBox s;
+	CheckBox su;
+	EditText startDate;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +65,15 @@ public class TopicSendActivity extends Activity {
 		Button qButton = (Button) findViewById(R.id.QButton);
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
-		Button save = (Button) findViewById(R.id.button1);
-		CheckBox m  = (CheckBox) findViewById(R.id.monday);
-		CheckBox t  = (CheckBox) findViewById(R.id.tuesday);
-		CheckBox w  = (CheckBox) findViewById(R.id.wednesday);
-		CheckBox th  = (CheckBox) findViewById(R.id.thursday);
-		CheckBox f  = (CheckBox) findViewById(R.id.friday);
-		CheckBox s  = (CheckBox) findViewById(R.id.saturday);
-		CheckBox su  = (CheckBox) findViewById(R.id.sunday);
-		EditText startDate = (EditText) findViewById(R.id.editText1);
+		save = (Button) findViewById(R.id.button1);
+		m  = (CheckBox) findViewById(R.id.monday);
+		t  = (CheckBox) findViewById(R.id.tuesday);
+		w  = (CheckBox) findViewById(R.id.wednesday);
+		th  = (CheckBox) findViewById(R.id.thursday);
+		f  = (CheckBox) findViewById(R.id.friday);
+		s  = (CheckBox) findViewById(R.id.saturday);
+		su  = (CheckBox) findViewById(R.id.sunday);
+		startDate = (EditText) findViewById(R.id.editText1);
 		final Context context = this;
 
 		
@@ -75,6 +85,118 @@ public class TopicSendActivity extends Activity {
 		
 		topicText.setText("Topic: " + topic);
 		topicText.setTextSize(18);
+		
+		save.setOnClickListener(new View.OnClickListener() 
+		{
+			@Override
+			public void onClick(View currentView) 
+			{
+				String date = startDate.getText().toString();
+				int mo = 0;
+				int tu = 0;
+				int wed = 0;
+				int thur = 0;
+				int fri = 0;
+				int sat = 0;
+				int sun = 0;
+				if(!date.equals(""))
+				{
+					CheckBox checkBox1 = (CheckBox) findViewById(R.id.monday);
+					if (checkBox1.isChecked()) 
+					{
+						mo = 1;
+					}
+					CheckBox checkBox2 = (CheckBox) findViewById(R.id.tuesday);
+					if (checkBox2.isChecked()) 
+					{
+						tu = 1;
+					}
+					CheckBox checkBox3 = (CheckBox) findViewById(R.id.wednesday);
+					if (checkBox3.isChecked()) 
+					{
+						wed = 1;
+					}
+					CheckBox checkBox4 = (CheckBox) findViewById(R.id.thursday);
+					if (checkBox4.isChecked()) 
+					{
+						thur = 1;
+					}
+					CheckBox checkBox5 = (CheckBox) findViewById(R.id.friday);
+					if (checkBox5.isChecked()) 
+					{
+						fri = 1;
+					}
+					CheckBox checkBox6 = (CheckBox) findViewById(R.id.saturday);
+					if (checkBox6.isChecked()) 
+					{
+						sat = 1;
+					}
+					CheckBox checkBox7 = (CheckBox) findViewById(R.id.sunday);
+					if (checkBox7.isChecked()) 
+					{
+						sun = 1;
+					}
+					
+					try {
+							StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+							StrictMode.setThreadPolicy(policy);
+							HttpClient defaultClient =  new DefaultHttpClient();
+							HttpPost post = new HttpPost();
+							
+							String temp1 = "http://199.180.255.173/index.php/mobile/sendTopic/" + topic + "/" + section.getSectionID() + "/" + date + "/" + mo + "/" + tu + "/" + wed + "/" + thur + "/" + fri + "/" + sat + "/" + sun;
+							//String temp1 = "http://199.180.255.173/index.php/mobile/sendTopic/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section;
+							post.setURI(new URI(temp1));
+							HttpResponse httpResponse = defaultClient.execute(post);
+							BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+							String json = ""; 
+							String temp = "";
+							
+							while ((temp = reader.readLine()) != null)
+							{
+								json += temp;
+							}
+		
+							if(json.equalsIgnoreCase("false"))
+							{
+								Toast.makeText(getApplicationContext(),
+				                        "Error.",
+				                        Toast.LENGTH_LONG).show();
+								
+							}
+							else if(json.equalsIgnoreCase("true"))
+							{
+								Toast.makeText(getApplicationContext(),
+				                        "Changes saved!",
+				                        Toast.LENGTH_LONG).show();
+							}
+							
+							Toast.makeText(getApplicationContext(),
+			                        json,
+			                        Toast.LENGTH_LONG).show();
+						
+						
+					}
+					catch (Exception e)
+					{
+						Toast.makeText(getApplicationContext(),
+			                    "Error. Please be sure your device has service or is connected to the internet.",
+			                    Toast.LENGTH_LONG).show();
+					}
+				}
+				else
+				{
+					Toast.makeText(getApplicationContext(),
+	                        "Please enter a start date and try again.",
+	                        Toast.LENGTH_LONG).show();
+					
+				}
+				
+				
+			
+
+				
+			}
+		});
 		
 		qButton.setOnClickListener(new View.OnClickListener() {
 			
