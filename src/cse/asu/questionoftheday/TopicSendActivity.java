@@ -65,7 +65,7 @@ public class TopicSendActivity extends Activity {
 		Button qButton = (Button) findViewById(R.id.QButton);
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
-		save = (Button) findViewById(R.id.button1);
+		save = (Button) findViewById(R.id.btnNewUser);
 		m  = (CheckBox) findViewById(R.id.monday);
 		t  = (CheckBox) findViewById(R.id.tuesday);
 		w  = (CheckBox) findViewById(R.id.wednesday);

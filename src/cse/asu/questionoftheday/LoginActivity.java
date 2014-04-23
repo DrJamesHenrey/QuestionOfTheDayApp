@@ -35,6 +35,8 @@ import android.widget.*;
 public class LoginActivity extends Activity {
 
 	private Button loginButton;
+	private Button newUserButton;
+	private Button forgotPasswordButton;
 	private EditText usernameTextField;
 	private EditText passwordTextField;
 	final Context context = this;
@@ -47,9 +49,29 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         loginButton = (Button) findViewById(R.id.LoginButton);
+        newUserButton = (Button) findViewById(R.id.NewUserButton);
+        forgotPasswordButton = (Button) findViewById(R.id.ForgotPasswordButton);
         usernameTextField = (EditText) findViewById(R.id.UserNameTextField);
         passwordTextField = (EditText) findViewById(R.id.PasswordTextField);
+        
         //final TextView text = (TextView) findViewById(R.id.Text); Killed the "hello world label on the top" - jabach
+        
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener()
+        {
+        	public void onClick(View currentView)
+        	{
+        		
+        	}
+        });
+        
+        
+        newUserButton.setOnClickListener(new View.OnClickListener()
+        {
+        	public void onClick(View currentView)
+        	{
+        		
+        	}
+        });
         
         
         loginButton.setOnClickListener(new View.OnClickListener() 
