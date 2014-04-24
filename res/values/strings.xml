@@ -49,5 +49,6 @@
     <string name="title_activity_topic_send">TopicSendActivity</string>
     <string name="NewUser">New User</string>
     <string name="ForgotPassword">Forgot Password</string>
+    <string name="logout">Log Out</string>
 
 </resources>

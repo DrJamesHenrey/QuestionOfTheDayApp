@@ -129,6 +129,7 @@ public final class R {
         public static final int insideLayout=0x7f080054;
         public static final int linearLayout1=0x7f08004a;
         public static final int linearLayout2=0x7f080050;
+        public static final int menulogout=0x7f080075;
         public static final int messageText=0x7f080055;
         public static final int monday=0x7f08006a;
         public static final int newQs=0x7f08001a;
@@ -256,6 +257,7 @@ public final class R {
         public static final int login_activity_password_label=0x7f05002a;
         public static final int login_activity_username_hint=0x7f05002b;
         public static final int login_activity_username_label=0x7f050029;
+        public static final int logout=0x7f050030;
         public static final int submit=0x7f050011;
         public static final int title_activity_answer_page=0x7f05000e;
         public static final int title_activity_answer_question=0x7f05000f;
