@@ -45,7 +45,7 @@ public class StatisticsScreenSfromPActivity extends Activity {
 	private Button questionButton;
 	private Button statisticsButton;
 	private Button menuButton;
-	
+	//this is here because git is dumb
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
