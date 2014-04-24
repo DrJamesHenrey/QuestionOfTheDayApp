@@ -139,6 +139,15 @@
             android:name="cse.asu.questionoftheday.TopicSendActivity"
             android:label="@string/title_activity_topic_send" >
         </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.StatisticsScreenSfromPActivity"
+            android:label="@string/title_activity_statistics_screen" >
+        </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.SingleQuestionStatsTopicActivity"
+            android:label="@string/title_activity_single_question" >
+        </activity>
+
     </application>
 
 </manifest>
