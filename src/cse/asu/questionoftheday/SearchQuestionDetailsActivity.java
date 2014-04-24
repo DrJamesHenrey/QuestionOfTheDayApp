@@ -1,30 +1,20 @@
 package cse.asu.questionoftheday;
 
-import java.io.BufferedReader; 
-import java.io.InputStreamReader;
-import java.net.URI;
+import java.net.URI; 
 import java.util.ArrayList;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.example.cse.asu.questionoftheday.R;
-import com.example.cse.asu.questionoftheday.R.id;
 import com.example.cse.asu.questionoftheday.R.layout;
 import com.example.cse.asu.questionoftheday.R.menu;
 
-import cse.asu.questionoftheday.GraphsActivity;
-import cse.asu.questionoftheday.SearchQuestionActivity;
-import cse.asu.questionoftheday.StatsByNameActivity;
-import cse.asu.questionoftheday.StatsByTopicActivity;
-import cse.asu.questionoftheday.StudentRosterActivity;
-import cse.asu.questionoftheday.TAActivity;
+import cse.asu.questionoftheday.model.Question;
 import cse.asu.questionoftheday.model.Section;
 import cse.asu.questionoftheday.model.User;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -32,43 +22,51 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Gravity;
+import android.text.TextUtils.TruncateAt;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class SearchQuestionActivity extends Activity {
+public class SearchQuestionDetailsActivity extends Activity {
 
-	LinearLayout topicLayout;
-	ArrayList<String> topics;
-	Section section;
 	User user;
-	TextView topicText;
-	final Context context = this;
+	Question question;
+	Section section;
+	Button add;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_question);
+		setContentView(R.layout.activity_search_question_details);
 		
 		setTitle("Question of the Day");
 		
-		topicText = (TextView) findViewById(R.id.TopicText);
 		Button qButton = (Button) findViewById(R.id.QButton);
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
-		topicLayout = (LinearLayout) findViewById(R.id.TopicLayout);
+		add = (Button) findViewById(R.id.Remove);
+		TextView questionDetails = (TextView) findViewById(R.id.QuestionDetailsText);
+		TextView topicText = (TextView) findViewById(R.id.topicText);
+		TextView promptText = (TextView) findViewById(R.id.promptText);
+		TextView aText = (TextView) findViewById(R.id.aText);
+		TextView bText = (TextView) findViewById(R.id.bText);
+		TextView cText = (TextView) findViewById(R.id.cText);
+		TextView dText = (TextView) findViewById(R.id.dText);
+		TextView correctText = (TextView) findViewById(R.id.correctText);
+		TextView hintsText = (TextView) findViewById(R.id.hintsText);
+		TextView explanationText = (TextView) findViewById(R.id.explanationText);
+		final Context context = this;
 		
-		user = (User) getIntent().getExtras().getParcelable("USER_KEY");
+		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
 
+		question = (Question) getIntent().getExtras().getParcelable("QUESTION_KEY");
 		section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
-		topics = new ArrayList<String>();
 		
-		topicText.setText("All Topics");
-		topicText.setTextSize(24);
+		questionDetails.setText("Question #" + question.getID());
+		questionDetails.setTextSize(20);
 		
 		qButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -185,104 +183,107 @@ public class SearchQuestionActivity extends Activity {
 			}
 		});
 		
-		instantiateTopics();
-		populateButtons();
 		
-	}
-
-	private void populateButtons() {
+		topicText.setText(question.getTopic());
+		topicText.setTextSize(12);
+		topicText.setSingleLine();
+		topicText.setEllipsize(TruncateAt.END);
 		
-		if(topics.size() == 0)
-		{
-			topicText.setText("There are no questions created for this section");
-			topicText.setGravity(Gravity.CENTER);
-		}
-		for (int i=0; i<topics.size(); i++)
-		{
-			final int index = i;
-			Button button = new Button(this);
-			button.setText(topics.get(i));
-			button.setTextSize(18);
-			button.setGravity(Gravity.CENTER);
-			button.setTextAppearance(this, R.style.Theme_Cse);
-			topicLayout.addView(button);
+		promptText.setText(question.getPrompt());
+		promptText.setTextSize(12);
+		promptText.setSingleLine();
+		promptText.setEllipsize(TruncateAt.END);
+		
+		aText.setText(question.getA());
+		aText.setTextSize(12);
+		aText.setSingleLine();
+		aText.setEllipsize(TruncateAt.END);
+		
+		bText.setText(question.getB());
+		bText.setTextSize(12);
+		bText.setSingleLine();
+		bText.setEllipsize(TruncateAt.END);
+		
+		cText.setText(question.getC());
+		cText.setTextSize(12);
+		cText.setSingleLine();
+		cText.setEllipsize(TruncateAt.END);
+		
+		dText.setText(question.getD());
+		dText.setTextSize(12);
+		dText.setSingleLine();
+		dText.setEllipsize(TruncateAt.END);
+		
+		correctText.setText(question.getCorrect().toUpperCase());
+		correctText.setTextSize(12);
+		
+		hintsText.setText(question.getHint());
+		hintsText.setTextSize(12);
+		hintsText.setSingleLine();
+		hintsText.setEllipsize(TruncateAt.END);
+		
+		explanationText.setText(question.getExplanation());
+		explanationText.setTextSize(12);
+		explanationText.setSingleLine();
+		explanationText.setEllipsize(TruncateAt.END);
+		
+		add.setOnClickListener(new View.OnClickListener() 
+        {
 			
-			button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View currentView) 
+			{
+
+				try {
+					StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+					StrictMode.setThreadPolicy(policy);
+					HttpClient defaultClient =  new DefaultHttpClient();
+					HttpPost post = new HttpPost();
+					
+					String temp = "http://199.180.255.173/index.php/mobile/searchAdd/" + section.getSectionID() + "/" + question.getID() + "/" + question.getTopic();
+					temp = temp.replaceAll(" ", "%20");
+;
+					post.setURI(new URI(temp));
+					defaultClient.execute(post);
 				
-				public void onClick(View v) {
-					Intent myIntent = new Intent(v.getContext(), SearchTopicQuestions.class);
-					myIntent.putExtra("USER_KEY", user);
-					myIntent.putExtra("SECTION_KEY", section);
-					myIntent.putExtra("TOPIC_KEY", topics.get(index));
-					startActivity(myIntent);
 				}
-			});
-		}
-		
+				catch (Exception e)
+				{
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							context);
+
+						// set title
+						alertDialogBuilder.setTitle("Connection Error");
+
+						// set dialog message
+						alertDialogBuilder
+							.setMessage("Please check your internet connection and try again")
+							.setCancelable(false)
+							.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,int id) {
+									
+								}
+							  });
+
+							AlertDialog alertDialog = alertDialogBuilder.create();
+
+							alertDialog.show();
+				}	
+
+				Toast.makeText(getApplicationContext(),
+	                    "Question added to section " + section.getSectionID(),
+	                    Toast.LENGTH_LONG).show();
+			}
+        });
 		
 	}
 
-	private void instantiateTopics() {
-		
-		try {
-
-			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-			StrictMode.setThreadPolicy(policy);
-			HttpClient defaultClient =  new DefaultHttpClient();
-			HttpPost post = new HttpPost();
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getAllTopics"));
-			HttpResponse httpResponse = defaultClient.execute(post);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
-			String json = ""; 
-			String temp = "";
-			
-			while ((temp = reader.readLine()) != null)
-			{
-				json += temp;
-			}
-			
-			JSONArray array = new JSONArray(json);
-			for(int i =0; i< array.length(); i++)
-			{
-				JSONObject object = (JSONObject) array.get(i);
-				
-				topics.add((String) object.get("topic") );
-			}
-			
-		}
-		catch (Exception e)
-		{
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					context);
-
-				// set title
-				alertDialogBuilder.setTitle("Connection Error");
-
-				// set dialog message
-				alertDialogBuilder
-					.setMessage("Please check your internet connection and try again")
-					.setCancelable(false)
-					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							startActivity(intent);
-						}
-					  });
-
-					AlertDialog alertDialog = alertDialogBuilder.create();
-
-					alertDialog.show();
-		}	
-		
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.manage_questions, menu);
+		getMenuInflater().inflate(R.menu.qestion_details, menu);
 		return true;
 	}
-
 }
 

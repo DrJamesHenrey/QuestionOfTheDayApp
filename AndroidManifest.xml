@@ -150,7 +150,14 @@
             android:name="cse.asu.questionoftheday.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password" >
         </activity>
-
+        <activity
+            android:name="cse.asu.questionoftheday.SearchTopicQuestions"
+            android:label="@string/title_activity_search_topic_questions" >
+        </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.SearchQuestionDetailsActivity"
+            android:label="@string/title_activity_search_question_details" >
+        </activity>
     </application>
 
 </manifest>

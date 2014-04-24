@@ -13,18 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.example.cse.asu.questionoftheday.R;
-import com.example.cse.asu.questionoftheday.R.id;
 import com.example.cse.asu.questionoftheday.R.layout;
 import com.example.cse.asu.questionoftheday.R.menu;
 
-import cse.asu.questionoftheday.GraphsActivity;
-import cse.asu.questionoftheday.SearchQuestionActivity;
-import cse.asu.questionoftheday.StatsByNameActivity;
-import cse.asu.questionoftheday.StatsByTopicActivity;
-import cse.asu.questionoftheday.StudentRosterActivity;
-import cse.asu.questionoftheday.TAActivity;
+import cse.asu.questionoftheday.model.Question;
 import cse.asu.questionoftheday.model.Section;
 import cse.asu.questionoftheday.model.User;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -32,6 +27,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -39,36 +35,37 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SearchQuestionActivity extends Activity {
+public class SearchTopicQuestions extends Activity {
 
-	LinearLayout topicLayout;
-	ArrayList<String> topics;
-	Section section;
+	String topic;
 	User user;
+	Section section;
+	ArrayList<Question> questions;
 	TextView topicText;
+	LinearLayout topicHomeLayout;
 	final Context context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_question);
-		
+		setContentView(R.layout.activity_search_topic_questions);
 		setTitle("Question of the Day");
 		
-		topicText = (TextView) findViewById(R.id.TopicText);
+		topicText = (TextView) findViewById(R.id.TopicHomeText);
 		Button qButton = (Button) findViewById(R.id.QButton);
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
-		topicLayout = (LinearLayout) findViewById(R.id.TopicLayout);
+		final Context context = this;
+		topicHomeLayout = (LinearLayout) findViewById(R.id.TopicHomeLayout);
 		
 		user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
 
 		section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
-		topics = new ArrayList<String>();
+		topic = (String) getIntent().getExtras().getString("TOPIC_KEY");
 		
-		topicText.setText("All Topics");
-		topicText.setTextSize(24);
+		topicText.setText("All questions for topic: " + topic);
+		topicText.setTextSize(18);
 		
 		qButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -185,52 +182,61 @@ public class SearchQuestionActivity extends Activity {
 			}
 		});
 		
-		instantiateTopics();
+		instantiateQuestions();
 		populateButtons();
-		
 	}
 
 	private void populateButtons() {
 		
-		if(topics.size() == 0)
+		if(questions.size()==0)
 		{
-			topicText.setText("There are no questions created for this section");
+			topicText.setText("There are not questions in the database for this topic");
 			topicText.setGravity(Gravity.CENTER);
 		}
-		for (int i=0; i<topics.size(); i++)
+		for (int i=0; i<questions.size(); i++)
 		{
 			final int index = i;
 			Button button = new Button(this);
-			button.setText(topics.get(i));
-			button.setTextSize(18);
-			button.setGravity(Gravity.CENTER);
+			
+			String temp;
+			if(questions.get(i).getPrompt().length() >150)
+			{
+				temp = questions.get(i).getPrompt().substring(0, 150) + "...";
+			}
+			else
+				temp = questions.get(i).getPrompt();
+			
+			button.setText(Html.fromHtml(questions.get(i).getID() + ". " + temp));
+			button.setTextSize(8);
+			button.setGravity(Gravity.LEFT);
 			button.setTextAppearance(this, R.style.Theme_Cse);
-			topicLayout.addView(button);
+			topicHomeLayout.addView(button);
+			
 			
 			button.setOnClickListener(new View.OnClickListener() {
 				
 				public void onClick(View v) {
-					Intent myIntent = new Intent(v.getContext(), SearchTopicQuestions.class);
+					Intent myIntent = new Intent(v.getContext(), SearchQuestionDetailsActivity.class);
 					myIntent.putExtra("USER_KEY", user);
 					myIntent.putExtra("SECTION_KEY", section);
-					myIntent.putExtra("TOPIC_KEY", topics.get(index));
+					myIntent.putExtra("QUESTION_KEY", questions.get(index));
 					startActivity(myIntent);
 				}
 			});
 		}
-		
-		
 	}
 
-	private void instantiateTopics() {
+	private void instantiateQuestions() {
+		questions = new ArrayList<Question>();
+		String top= "", prompt= "", a= "", b= "", c= "", d= "", correct= "", hint= "", explanation= "";
+		int id=0;
 		
 		try {
-
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 			HttpClient defaultClient =  new DefaultHttpClient();
-			HttpPost post = new HttpPost();
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getAllTopics"));
+			HttpPost post = new HttpPost();	
+			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestionByTopic/" + topic));
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
@@ -245,8 +251,24 @@ public class SearchQuestionActivity extends Activity {
 			for(int i =0; i< array.length(); i++)
 			{
 				JSONObject object = (JSONObject) array.get(i);
+
+				id = Integer.parseInt((String) object.get("id"));
+				top = (String) object.get("topic") + "";
+				prompt = (String) object.get("prompt") + "";
+				a = (String) object.get("a") + "";	
+				b = (String) object.get("b") + "";
+				c = (String) object.get("c") + "";
+				d = (String) object.get("d") + "";
 				
-				topics.add((String) object.get("topic") );
+				correct = (String) object.get("correct") + "";
+				hint = (String) object.get("hint") + "";
+				explanation = (String) object.get("explanation") + "";
+
+				
+					Question question = new Question(id, top, prompt, a, b, c, d, correct, hint, explanation);
+					questions.add(question);
+				
+				
 			}
 			
 		}
@@ -280,7 +302,7 @@ public class SearchQuestionActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.manage_questions, menu);
+		getMenuInflater().inflate(R.menu.topic_home, menu);
 		return true;
 	}
 
