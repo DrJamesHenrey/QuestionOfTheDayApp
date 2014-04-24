@@ -45,7 +45,8 @@ public class ManageQuestionsActivity extends Activity {
 	Section section;
 	User user;
 	TextView topicText;
-
+	final Context context = this;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,7 +59,6 @@ public class ManageQuestionsActivity extends Activity {
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
 		topicLayout = (LinearLayout) findViewById(R.id.TopicLayout);
-		final Context context = this;
 		
 		user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
@@ -193,7 +193,7 @@ public class ManageQuestionsActivity extends Activity {
 		
 		if(topics.size() == 0)
 		{
-			topicText.setText("There are no questions registered for this section");
+			topicText.setText("There are no questions created for this section");
 			topicText.setGravity(Gravity.CENTER);
 		}
 		for (int i=0; i<topics.size(); i++)
@@ -251,7 +251,27 @@ public class ManageQuestionsActivity extends Activity {
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					context);
+
+				// set title
+				alertDialogBuilder.setTitle("Connection Error");
+
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("Please check your internet connection and try again")
+					.setCancelable(false)
+					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							startActivity(intent);
+						}
+					  });
+
+					AlertDialog alertDialog = alertDialogBuilder.create();
+
+					alertDialog.show();
 		}	
 		
 	}

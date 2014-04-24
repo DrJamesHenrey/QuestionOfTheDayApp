@@ -19,6 +19,9 @@ import cse.asu.questionoftheday.model.User;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -37,7 +40,7 @@ public class ChangePassWordActivity extends Activity {
 	private String cPassword, newPassword1, newPassword2;
 	private EditText cPassw, newPassw1, newPassw2;
 	private boolean correctCurrentPword;
-	 
+	final Context context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

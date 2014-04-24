@@ -23,6 +23,9 @@ import cse.asu.questionoftheday.model.User;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 import android.view.Menu;
@@ -42,7 +45,7 @@ public class SingleQuestionStatsActivity extends Activity {
 	ArrayList<String> correct;
 	ArrayList<String> listOfSections;
 	int userid, questionid;
-
+	final Context context = this;
 	
 
 
@@ -118,7 +121,27 @@ public class SingleQuestionStatsActivity extends Activity {
 			
 			}
 			catch(Exception ex){
-				System.out.println(ex);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
+
+					// set title
+					alertDialogBuilder.setTitle("Connection Error");
+
+					// set dialog message
+					alertDialogBuilder
+						.setMessage("Please check your internet connection and try again")
+						.setCancelable(false)
+						.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(intent);
+							}
+						  });
+
+						AlertDialog alertDialog = alertDialogBuilder.create();
+
+						alertDialog.show();
 			}
 		answer = "";
 		iscorrect ="";

@@ -27,6 +27,9 @@ import cse.asu.questionoftheday.model.User;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -46,6 +49,7 @@ public class AnswerScreenActivity extends Activity {
 	Button hButton, rButton;
 	int correct;
 	ToggleButton showExplanation;
+	final Context context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +120,27 @@ public class AnswerScreenActivity extends Activity {
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					context);
+	 
+				// set title
+				alertDialogBuilder.setTitle("Connection Error");
+	 
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("Please check your internet connection and try again")
+					.setCancelable(false)
+					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							startActivity(intent);
+						}
+					  });
+	 
+					AlertDialog alertDialog = alertDialogBuilder.create();
+	 
+					alertDialog.show();
 		}	
 		
 		

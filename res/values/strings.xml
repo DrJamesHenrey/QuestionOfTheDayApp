@@ -46,5 +46,8 @@
     <string name="login_activity_password_label">Password:</string>
     <string name="login_activity_username_hint">User</string>
     <string name="login_activity_password_hint">Password</string>
+    <string name="title_activity_topic_send">TopicSendActivity</string>
+    <string name="NewUser">New User</string>
+    <string name="ForgotPassword">Forgot Password</string>
 
 </resources>

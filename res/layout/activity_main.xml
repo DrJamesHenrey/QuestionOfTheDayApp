@@ -54,9 +54,27 @@
         android:id="@+id/LoginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/UserNameTextField"
         android:layout_below="@+id/PasswordTextField"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="20dp"
         android:text="@string/LoginButton" />
+
+    <Button
+        android:id="@+id/NewUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/LoginButton"
+        android:layout_alignBottom="@+id/LoginButton"
+        android:layout_alignLeft="@+id/UserNameTextField"
+        android:text="@string/NewUser" />
+
+    <Button
+        android:id="@+id/ForgotPasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LoginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/ForgotPassword" />
 
 </RelativeLayout>

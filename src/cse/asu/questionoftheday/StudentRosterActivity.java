@@ -52,7 +52,8 @@ public class StudentRosterActivity extends Activity {
 	List<Integer> selectedStudents;
 	boolean error, reloaded;
 	TextView rosterView, messageText;
-
+	final Context context = this;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -281,7 +282,27 @@ public class StudentRosterActivity extends Activity {
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					context);
+
+				// set title
+				alertDialogBuilder.setTitle("Connection Error");
+
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("Please check your internet connection and try again")
+					.setCancelable(false)
+					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							startActivity(intent);
+						}
+					  });
+
+					AlertDialog alertDialog = alertDialogBuilder.create();
+
+					alertDialog.show();
 		}
 		
 		remove.setOnClickListener(new View.OnClickListener() {
@@ -337,7 +358,27 @@ public class StudentRosterActivity extends Activity {
 						}
 						catch (Exception e)
 						{
-							System.out.println(e.getMessage());
+							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+									context);
+
+								// set title
+								alertDialogBuilder.setTitle("Connection Error");
+
+								// set dialog message
+								alertDialogBuilder
+									.setMessage("Please check your internet connection and try again")
+									.setCancelable(false)
+									.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog,int id) {
+											Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+											intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+											startActivity(intent);
+										}
+									  });
+
+									AlertDialog alertDialog = alertDialogBuilder.create();
+
+									alertDialog.show();
 						}
 						
 						Intent myIntent = new Intent(currentView.getContext(), StudentRosterActivity.class);
