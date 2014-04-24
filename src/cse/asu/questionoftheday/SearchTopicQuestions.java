@@ -231,7 +231,7 @@ public class SearchTopicQuestions extends Activity {
 		String top= "", prompt= "", a= "", b= "", c= "", d= "", correct= "", hint= "", explanation= "";
 		int id=0;
 		
-		try {
+		try { 
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 			HttpClient defaultClient =  new DefaultHttpClient();

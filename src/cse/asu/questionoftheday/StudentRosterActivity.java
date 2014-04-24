@@ -38,6 +38,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,10 +92,18 @@ public class StudentRosterActivity extends Activity {
 			error = (boolean) getIntent().getExtras().getBoolean("ERROR_KEY");
 			if(error)
 			{
-				messageText.setText("An error has occured while trying to delete");
+				Toast.makeText(getApplicationContext(),
+	                    "An error has occured while trying to delete",
+	                    Toast.LENGTH_LONG).show();
+				//messageText.setText("An error has occured while trying to delete");
 			}
 			else
-				messageText.setText("Student(s) deleted successfuly");
+			{
+				Toast.makeText(getApplicationContext(),
+	                    "Student(s) deleted successfully",
+	                    Toast.LENGTH_LONG).show();
+			}
+				//messageText.setText("Student(s) deleted successfully");
 		}
 		
 		qButton.setOnClickListener(new View.OnClickListener() {
@@ -320,7 +329,9 @@ public class StudentRosterActivity extends Activity {
 				
 				if(!selected)
 				{
-					messageText.setText("No students selected!");
+					Toast.makeText(getApplicationContext(),
+		                    "No students selected!",
+		                    Toast.LENGTH_LONG).show();
 				}
 				for(int i = 0; i<userNames.size(); i++)
 				{
