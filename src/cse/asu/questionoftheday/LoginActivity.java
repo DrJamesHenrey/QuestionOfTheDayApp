@@ -22,7 +22,6 @@ import org.json.JSONObject;
 import com.example.cse.asu.questionoftheday.R;
 
 import cse.asu.questionoftheday.model.User;
-
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.*;
@@ -60,7 +59,9 @@ public class LoginActivity extends Activity {
         {
         	public void onClick(View currentView)
         	{
-        		
+        		Intent myIntent = new Intent(currentView.getContext(), ForgotPasswordActivity.class);
+				//myIntent.putExtra("USER_KEY", user);
+				startActivity(myIntent);
         	}
         });
         

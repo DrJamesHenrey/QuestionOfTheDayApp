@@ -73,7 +73,7 @@ public class TopicSendActivity extends Activity {
 		f  = (CheckBox) findViewById(R.id.friday);
 		s  = (CheckBox) findViewById(R.id.saturday);
 		su  = (CheckBox) findViewById(R.id.sunday);
-		startDate = (EditText) findViewById(R.id.editText1);
+		startDate = (EditText) findViewById(R.id.txtResetEmail);
 		final Context context = this;
 
 		

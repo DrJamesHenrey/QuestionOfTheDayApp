@@ -12,7 +12,6 @@
 
     <application
         android:allowBackup="true"
-        android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Cse" >
@@ -146,6 +145,10 @@
         <activity
             android:name="cse.asu.questionoftheday.SingleQuestionStatsTopicActivity"
             android:label="@string/title_activity_single_question" >
+        </activity>
+        <activity
+            android:name="cse.asu.questionoftheday.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password" >
         </activity>
 
     </application>
