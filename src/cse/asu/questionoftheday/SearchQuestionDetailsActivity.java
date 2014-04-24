@@ -242,7 +242,6 @@ public class SearchQuestionDetailsActivity extends Activity {
 					
 					String temp = "http://199.180.255.173/index.php/mobile/searchAdd/" + section.getSectionID() + "/" + question.getID() + "/" + question.getTopic();
 					temp = temp.replaceAll(" ", "%20");
-;
 					post.setURI(new URI(temp));
 					defaultClient.execute(post);
 				

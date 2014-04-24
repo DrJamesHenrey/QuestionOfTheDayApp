@@ -1,6 +1,6 @@
 package cse.asu.questionoftheday;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; 
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,13 +43,15 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class TAActivity extends Activity {
 
 	User user;
+	Button add;
+	EditText newTA;
 	Section section;
 	LinearLayout linearLayout;
 	ArrayList<String> userNames;
 	Button remove;
 	List<Integer> selectedStudents;
 	boolean error, reloaded;
-	TextView rosterView, messageText;
+	TextView rosterView;
 	final Context context = this;
 	
 	@Override
@@ -57,9 +60,9 @@ public class TAActivity extends Activity {
 		setContentView(R.layout.activity_ta);
 		
 		setTitle("Question of the Day");
-		
+		newTA = (EditText) findViewById(R.id.editText1);
+		add = (Button) findViewById(R.id.Button01);
 		rosterView = (TextView) findViewById(R.id.RosterButton);
-		messageText = (TextView) findViewById(R.id.messageText);
 		Button qButton = (Button) findViewById(R.id.QButton);
 		Button sButton = (Button) findViewById(R.id.SButton);
 		Button rButton = (Button) findViewById(R.id.RButton);
@@ -72,27 +75,33 @@ public class TAActivity extends Activity {
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
 
 		section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
-		rosterView.setText("Roster for Section " + section.getSectionID());
+		rosterView.setText("TAs for Section " + section.getSectionID());
 		rosterView.setTextSize(22);
 		
 		userNames = new ArrayList<String>();
 		selectedStudents = new ArrayList<Integer>();
 		
 		reloaded = (boolean) getIntent().getExtras().getBoolean("RELOADED_KEY");
-		if(!reloaded)
-		{
-			messageText.setText("");
-		}
-		else
+		if(reloaded)
 		{
 			error = (boolean) getIntent().getExtras().getBoolean("ERROR_KEY");
 			if(error)
 			{
-				messageText.setText("An error has occured while trying to delete");
+				Toast.makeText(getApplicationContext(),
+	                    "An error has occured. Changes not saved",
+	                    Toast.LENGTH_LONG).show();
+				//messageText.setText("An error has occured while trying to delete");
 			}
 			else
-				messageText.setText("Student(s) deleted successfuly");
+			{
+
+				Toast.makeText(getApplicationContext(),
+	                    "Changes successfully saved!",
+	                    Toast.LENGTH_LONG).show();
+			}
+				//messageText.setText("Student(s) deleted successfully");
 		}
+
 		
 		qButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -221,8 +230,8 @@ public class TAActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp = "http://199.180.255.173/index.php/mobile/getRoster/" + section.getSectionID();
-			
+			String temp = "http://199.180.255.173/index.php/mobile/getTAs/" + section.getSectionID();
+			temp = temp.replaceAll(" ", "%20");
 			post.setURI(new URI(temp));
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
@@ -237,7 +246,7 @@ public class TAActivity extends Activity {
 			
 			if(array.length() == 0)
 			{
-				rosterView.setText("There are no students currently enrolled in this section");
+				rosterView.setText("There are no TAs currently enrolled in this section");
 				rosterView.setGravity(Gravity.CENTER);
 				remove.setVisibility(View.INVISIBLE);
 			}
@@ -279,28 +288,77 @@ public class TAActivity extends Activity {
 		}
 		catch (Exception e)
 		{
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-					context);
-
-				// set title
-				alertDialogBuilder.setTitle("Connection Error");
-
-				// set dialog message
-				alertDialogBuilder
-					.setMessage("Please check your internet connection and try again")
-					.setCancelable(false)
-					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-							startActivity(intent);
-						}
-					  });
-
-					AlertDialog alertDialog = alertDialogBuilder.create();
-
-					alertDialog.show();
+			Toast.makeText(getApplicationContext(),
+                    "Error. Please be sure your device has service or is connected to the internet.",
+                    Toast.LENGTH_LONG).show();
 		}
+		
+		add.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View currentView) 
+			{
+				error = false;
+				String taUsername = newTA.getText().toString();
+				
+				try {
+					StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+					StrictMode.setThreadPolicy(policy);
+					HttpClient defaultClient =  new DefaultHttpClient();
+					HttpPost post = new HttpPost();
+					
+					String temp1 = "http://199.180.255.173/index.php/mobile/addNewTA/" + taUsername + "/" + section.getSectionID() ;
+					temp1 = temp1.replaceAll(" ", "%20");
+					post.setURI(new URI(temp1));
+					HttpResponse httpResponse = defaultClient.execute(post);
+					BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+					String json = ""; 
+					String temp = "";
+					
+					while ((temp = reader.readLine()) != null)
+					{
+						json += temp;
+					}
+
+					if(json.equalsIgnoreCase("false"))
+					{
+						Toast.makeText(getApplicationContext(),
+		                        "Cannot add a TA with a username that does not exsist. Please try again.",
+		                        Toast.LENGTH_LONG).show();
+						
+					}
+					else if(json.equalsIgnoreCase("true"))
+					{
+						Intent myIntent = new Intent(currentView.getContext(), TAActivity.class);
+						myIntent.putExtra("USER_KEY", user);
+						myIntent.putExtra("SECTION_KEY", section);
+						myIntent.putExtra("RELOADED_KEY", true);
+						myIntent.putExtra("ERROR_KEY", error);
+						myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+						startActivity(myIntent);
+						finish();
+						
+					}
+					else if(json.equalsIgnoreCase("already"))
+					{
+						Toast.makeText(getApplicationContext(),
+		                        "User already a TA for this section.",
+		                        Toast.LENGTH_LONG).show();
+						
+					}
+					
+					
+				}
+				catch (Exception e)
+				{
+					Toast.makeText(getApplicationContext(),
+		                    "Error. Please be sure your device has service or is connected to the internet.",
+		                    Toast.LENGTH_LONG).show();
+				}
+				
+				
+			}
+		});
 		
 		remove.setOnClickListener(new View.OnClickListener() {
 			
@@ -335,7 +393,7 @@ public class TAActivity extends Activity {
 							HttpClient defaultClient =  new DefaultHttpClient();
 							HttpPost post = new HttpPost();
 							
-							String temp = "http://199.180.255.173/index.php/mobile/removeStudent/" + userNames.get(index) +"/" + section.getSectionID();
+							String temp = "http://199.180.255.173/index.php/mobile/removeTA/" + userNames.get(index) +"/" + section.getSectionID();
 							
 							post.setURI(new URI(temp));
 							HttpResponse httpResponse = defaultClient.execute(post);
@@ -350,38 +408,27 @@ public class TAActivity extends Activity {
 							
 							if(json.equalsIgnoreCase("false"))
 							{
+								Toast.makeText(getApplicationContext(),
+					                    "An error has occured. Changes not saved",
+					                    Toast.LENGTH_LONG).show();
 															
 							}
 							if(json.equalsIgnoreCase("true"))
+							{
 								error = true;
+								
+							}
+								
 							
 						}
 						catch (Exception e)
 						{
-							AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-									context);
-
-								// set title
-								alertDialogBuilder.setTitle("Connection Error");
-
-								// set dialog message
-								alertDialogBuilder
-									.setMessage("Please check your internet connection and try again")
-									.setCancelable(false)
-									.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-										public void onClick(DialogInterface dialog,int id) {
-											Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-											intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-											startActivity(intent);
-										}
-									  });
-
-									AlertDialog alertDialog = alertDialogBuilder.create();
-
-									alertDialog.show();
+							Toast.makeText(getApplicationContext(),
+				                    "Error. Please be sure your device has service or is connected to the internet.",
+				                    Toast.LENGTH_LONG).show();
 						}
 						
-						Intent myIntent = new Intent(currentView.getContext(), StudentRosterActivity.class);
+						Intent myIntent = new Intent(currentView.getContext(), TAActivity.class);
 						myIntent.putExtra("USER_KEY", user);
 						myIntent.putExtra("SECTION_KEY", section);
 						myIntent.putExtra("RELOADED_KEY", true);
