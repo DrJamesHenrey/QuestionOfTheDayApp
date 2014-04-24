@@ -145,6 +145,7 @@ public class TopicSendActivity extends Activity {
 							
 							String temp1 = "http://199.180.255.173/index.php/mobile/sendTopic/" + topic + "/" + section.getSectionID() + "/" + date + "/" + mo + "/" + tu + "/" + wed + "/" + thur + "/" + fri + "/" + sat + "/" + sun;
 							//String temp1 = "http://199.180.255.173/index.php/mobile/sendTopic/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section + "/" + section;
+							temp1 = temp1.replaceAll(" ", "%20");
 							post.setURI(new URI(temp1));
 							HttpResponse httpResponse = defaultClient.execute(post);
 							BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
