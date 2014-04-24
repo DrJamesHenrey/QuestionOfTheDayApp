@@ -186,15 +186,17 @@ public final class R {
         public static final int activity_send_by_topic=0x7f030010;
         public static final int activity_settings_screen=0x7f030011;
         public static final int activity_single_question=0x7f030012;
-        public static final int activity_statitstics_screen=0x7f030013;
-        public static final int activity_stats_by_name=0x7f030014;
-        public static final int activity_stats_by_topic=0x7f030015;
-        public static final int activity_student_home=0x7f030016;
-        public static final int activity_student_roster=0x7f030017;
-        public static final int activity_ta=0x7f030018;
-        public static final int activity_topic_home=0x7f030019;
-        public static final int activity_transition=0x7f03001a;
-        public static final int answer_page=0x7f03001b;
+        public static final int activity_single_question_topic=0x7f030013;
+        public static final int activity_statistics_screen_s_from_p=0x7f030014;
+        public static final int activity_statitstics_screen=0x7f030015;
+        public static final int activity_stats_by_name=0x7f030016;
+        public static final int activity_stats_by_topic=0x7f030017;
+        public static final int activity_student_home=0x7f030018;
+        public static final int activity_student_roster=0x7f030019;
+        public static final int activity_ta=0x7f03001a;
+        public static final int activity_topic_home=0x7f03001b;
+        public static final int activity_transition=0x7f03001c;
+        public static final int answer_page=0x7f03001d;
     }
     public static final class menu {
         public static final int answer_page=0x7f070000;
