@@ -17,6 +17,7 @@ import com.example.cse.asu.questionoftheday.R.layout;
 import com.example.cse.asu.questionoftheday.R.menu;
 
 import cse.asu.questionoftheday.model.Question;
+import cse.asu.questionoftheday.model.Section;
 import cse.asu.questionoftheday.model.StatQuestion;
 import cse.asu.questionoftheday.model.User;
 
@@ -24,6 +25,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.Menu;
 import android.view.View;
@@ -49,7 +51,6 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_single_question_topic);
 		
@@ -64,10 +65,22 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 		answers = (TextView) findViewById(R.id.answers);
 		corrects = (TextView) findViewById(R.id.correct);
 		
+		RelativeLayout r1 = (RelativeLayout)findViewById(R.id.relativeLayout2);
+		r1.setBackgroundColor(Color.LTGRAY);
+		RelativeLayout r2 = (RelativeLayout)findViewById(R.id.relativeLayout4);
+		r2.setBackgroundColor(Color.LTGRAY);
+		RelativeLayout r3 = (RelativeLayout)findViewById(R.id.relativeLayout1);
+		r3.setBackgroundColor(Color.LTGRAY);
+		
+
+		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
+		final String topic =  getIntent().getExtras().getString("TOPIC_KEY");
+		final Section section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
 		final StatQuestion question = (StatQuestion) getIntent().getExtras().getParcelable("QUESTION_KEY");
 		listOfSections = new ArrayList<String>(user.getListOfSections());
 		
+
 
 		try{
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -75,27 +88,30 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			userid = user.getID();
-
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getAttemptsAsStudent/" + userid + "/"+  listOfSections.get(0) +"/" + question.getID())); 
+			
+			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID())); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
 			String temp = "";
 			
+			
 			while ((temp = reader.readLine()) != null)
 			{
 				json += temp;
 			}
-			JSONArray array = new JSONArray(json);
-			for(int i =0; i< array.length(); i++)
+			JSONObject jsonResponse = new JSONObject(json);
+			JSONArray usernames =  jsonResponse.getJSONArray("usernames");
+			JSONArray questionCorrect =  jsonResponse.getJSONArray("isCorrect");
+			for(int i =0; i< usernames.length(); i++)
 			{
-				JSONObject object = (JSONObject) array.get(i);
-				String att = (String) object.get("answer") + "";
-				String cor = (String) object.get("correct") + "";
+				String att = usernames.getString(i);
+				String cor = questionCorrect.getString(i);
 				
 				attempts.add(att);
 				correct.add(cor);
 			}
+
 			
 			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestion/" + question.getID())); 
 			httpResponse = defaultClient.execute(post);
@@ -103,6 +119,7 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 			
 			String json2 = ""; 
 			String temp2 = "";
+			
 			
 			while ((temp2 = reader.readLine()) != null)
 			{
@@ -116,16 +133,24 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 			qc = (String) "c:  " + object2.get("c")+"";
 			qd = (String) "d:  " + object2.get("d")+"";
 			
+			
 			}
 			catch(Exception ex){
 				System.out.println(ex);
 			}
 		answer = "";
 		iscorrect ="";
+		
 
 		for(int i = 0; i < attempts.size(); i++){
+			
+			if(Integer.parseInt(correct.get(i))== 1 ){
+				iscorrect += "YES" + "\n";
+			}
+			else{
+				iscorrect += "NO" + "\n";
+			}
 			answer += attempts.get(i) + "\n";
-			iscorrect += correct.get(i) + "\n";
 		}
 		setTitle("Question " + question.getID());
 

@@ -25,7 +25,7 @@
 
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <TextView
@@ -39,7 +39,7 @@
 
             <RelativeLayout
                 android:id="@+id/relativeLayout2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <LinearLayout
@@ -79,41 +79,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
+                <TextView
+                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            android:id="@+id/textView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Answers" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical" >
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="User" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@+id/linearLayout2"
-                    android:text="Percentage " />
+                    android:layout_marginRight="80dp"
+                    android:text="Correct" />
+
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/relativeLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -143,7 +127,9 @@
                                     android:id="@+id/answers"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="0.50"
                                     android:text="TextView" />
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -156,6 +142,7 @@
                                     android:id="@+id/correct"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="0.50"
                                     android:text="TextView" />
                             </LinearLayout>
                         </LinearLayout>

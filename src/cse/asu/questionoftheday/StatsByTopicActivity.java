@@ -43,6 +43,7 @@ public class StatsByTopicActivity extends Activity {
 	TextView questionTit;
 	ArrayList<StatQuestion> questions;
 
+
 	
 
 	@Override
@@ -61,7 +62,6 @@ public class StatsByTopicActivity extends Activity {
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
 
-		questionTit.setText("Questions in Section: " + section.getCourseID() + " \n In Topic: " + topic);
 		
 
 
@@ -82,21 +82,17 @@ private void initializeStatistics(){
 	
 
 	
-	String prompt= "", dateSent ="", answer= "", correct= "";
+	String prompt= "", dateSent ="", answer= "", correct= "", overallStat = "";
 	int id =0;	
 	questions = new ArrayList<StatQuestion>();
 	ArrayList<String> dateSentArray = new ArrayList<String>();
 	
 	try{
-		System.out.println("1");
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		HttpClient defaultClient =  new DefaultHttpClient();
 		HttpPost post = new HttpPost();
 		
-		System.out.println("2");
-
-		System.out.println("http://199.180.255.173/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID());
 		post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
 		HttpResponse httpResponse = defaultClient.execute(post);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
@@ -109,63 +105,95 @@ private void initializeStatistics(){
 			json += temp;
 		}
 		
-		System.out.println("3");
-		System.out.println(json);
 		JSONArray array = new JSONArray(json);
-		System.out.println("behind json");
-		System.out.println(array.length());
 		for(int i =0; i< array.length(); i++)
 		{
-			System.out.println("3.1");
-			JSONObject object = (JSONObject) array.get(i);
-			System.out.println("3.2");
+			JSONObject object = (JSONObject) array.get(i);;
 			id = Integer.parseInt((String) object.get("id"));
-			System.out.println("3.3");
 			prompt = (String) object.get("prompt") + "";
-			System.out.println("3.4");
 			dateSent = (String) object.get("dateSent") + "";
-			System.out.println("3.5");
-			
-			System.out.println(id);
+
 
 			
 			StatQuestion question = new StatQuestion(id, prompt, correct, answer);
 			questions.add(question);	
 			dateSentArray.add(dateSent);
 		}
-		System.out.println("4");
+
 	}
 	catch(Exception e){
 		
 	}
+	
+	try{
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		HttpClient defaultClient =  new DefaultHttpClient();
+		HttpPost post = new HttpPost();
+		
+
+		post.setURI(new URI("http://199.180.255.173/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic)); 
+		HttpResponse httpResponse = defaultClient.execute(post);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+		String json = ""; 
+		String temp = "";
+		
+		
+		while ((temp = reader.readLine()) != null)
+		{
+			json += temp;
+		}
+		
+
+		JSONObject jsonResponse = new JSONObject(json);
+		JSONArray array =  jsonResponse.getJSONArray("grades");
+
+		for(int i =0; i< array.length(); i++)
+		{
+			overallStat = array.getString(i);
+			
+
+
+			
+		}
+
+	}
+	catch(Exception e){
+		
+	}
+	
+	questionTit.setText("Questions in Section: " + section.getSectionID() + " \n In Topic: " + topic + "\n The class grade for this topic is: " + overallStat + "%");
+	
 }
 
 
 private void populateButtons(final ArrayList<StatQuestion> questions, final User user) {
 	
+	final Section section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
+	final String topic =  getIntent().getExtras().getString("TOPIC_KEY");
+	ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());
+	
 	TableLayout table = (TableLayout) findViewById(R.id.tableForButtons);
 		
-	System.out.println("5");
+
 	if(questions.size() == 0)
 	{
 		questionTit.setText("There are no sent questions for this topic at the current time. Please try again later.");
 		questionTit.setGravity(Gravity.CENTER);
 	}
 
-	System.out.println("6");
+
 	
 	for(int row = 0; row < questions.size(); row++)
 	{
 		final int index = row;
 	
-		System.out.println("7");
 		TableRow tableRow = new TableRow(this);
 		table.addView(tableRow);
 		
-		System.out.println("8");
 		Button button = new Button(this);
 		tableRow.addView(button);
-		System.out.println("9");
+
 		String temp;
 		if(questions.get(row).getPrompt().length() >40)
 		{
@@ -178,7 +206,7 @@ private void populateButtons(final ArrayList<StatQuestion> questions, final User
 				temp =  questions.get(row).getPrompt();
 			
 		}
-		System.out.println("10");
+
 		
 		button.setTextSize(8);
 		button.setText(questions.get(row).getID() + ". " + temp);
@@ -188,9 +216,11 @@ private void populateButtons(final ArrayList<StatQuestion> questions, final User
 		button.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent myIntent = new Intent(v.getContext(), SingleQuestionStatsActivity.class);
+				Intent myIntent = new Intent(v.getContext(), SingleQuestionStatsTopicActivity.class);
 				myIntent.putExtra("USER_KEY", user);
 				myIntent.putExtra("QUESTION_KEY", questions.get(index));
+				myIntent.putExtra("TOPIC_KEY", topic);
+				myIntent.putExtra("SECTION_KEY", section);
 				startActivity(myIntent);
 			}
 		});
