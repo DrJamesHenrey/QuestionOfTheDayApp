@@ -70,7 +70,10 @@ public class ForgotPasswordActivity extends Activity
 						StrictMode.setThreadPolicy(policy);
 						HttpClient defaultClient =  new DefaultHttpClient();
 						HttpPost post = new HttpPost();					
-						post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/requestReset/" + email));
+						String URL = "http://cse110.courses.asu.edu/index.php/mobile/requestReset/" + email;
+						//URL = URLEncoder.encode(URL, "UTF-8");
+						URL = URL.replaceAll("@", "%90");
+						post.setURI(new URI(URL));
 						HttpResponse httpResponse = defaultClient.execute(post);
 						BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 						String json = ""; 
@@ -81,8 +84,24 @@ public class ForgotPasswordActivity extends Activity
 							json += temp;
 						}
 						
+						if(json.equalsIgnoreCase("false"))
+						{
+							Toast.makeText(getApplicationContext(),
+			                        "User with Email does not exist.", Toast.LENGTH_LONG).show();
+						}
+						else
+						{
+							Toast.makeText(getApplicationContext(),
+			                        "Sent email with temporary password", Toast.LENGTH_LONG).show();
+							Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
+							//myIntent.putExtra("USER_KEY", user);
+							startActivity(myIntent);
+							finish();
+						}
+						
+						
 						// If successful
-						if(json.equalsIgnoreCase("true"))
+						/*if(json.equalsIgnoreCase("true"))
 						{
 							Toast.makeText(getApplicationContext(),
 			                        "Sent email with temporary password", Toast.LENGTH_LONG).show();
@@ -96,7 +115,7 @@ public class ForgotPasswordActivity extends Activity
 						{
 							Toast.makeText(getApplicationContext(),
 			                        "User with Email does not exist.", Toast.LENGTH_LONG).show();	
-						}
+						}*/
 						
 					}
 					catch (Exception e)
