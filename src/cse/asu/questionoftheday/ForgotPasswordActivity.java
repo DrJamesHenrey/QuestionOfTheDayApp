@@ -81,13 +81,8 @@ public class ForgotPasswordActivity extends Activity
 							json += temp;
 						}
 						
-						// If password doesn't match..
-						if(json.equalsIgnoreCase("false"))
-						{
-							Toast.makeText(getApplicationContext(),
-			                        "User with Email does not exist.", Toast.LENGTH_LONG).show();	
-						}
-						else // It matched!
+						// If successful
+						if(json.equalsIgnoreCase("true"))
 						{
 							Toast.makeText(getApplicationContext(),
 			                        "Sent email with temporary password", Toast.LENGTH_LONG).show();
@@ -96,6 +91,13 @@ public class ForgotPasswordActivity extends Activity
 							startActivity(myIntent);
 							finish();
 						}
+						// If failed
+						else
+						{
+							Toast.makeText(getApplicationContext(),
+			                        "User with Email does not exist.", Toast.LENGTH_LONG).show();	
+						}
+						
 					}
 					catch (Exception e)
 					{
