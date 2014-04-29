@@ -27,6 +27,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.Menu;
 import android.view.View;
@@ -66,6 +67,13 @@ public class SingleQuestionStatsActivity extends Activity {
 		d = (TextView) findViewById(R.id.answerD2);
 		answers = (TextView) findViewById(R.id.answers);
 		corrects = (TextView) findViewById(R.id.correct);
+		
+		RelativeLayout r1 = (RelativeLayout)findViewById(R.id.relativeLayout2);
+		r1.setBackgroundColor(Color.LTGRAY);
+		RelativeLayout r2 = (RelativeLayout)findViewById(R.id.relativeLayout4);
+		r2.setBackgroundColor(Color.LTGRAY);
+		RelativeLayout r3 = (RelativeLayout)findViewById(R.id.relativeLayout1);
+		r3.setBackgroundColor(Color.LTGRAY);
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		final StatQuestion question = (StatQuestion) getIntent().getExtras().getParcelable("QUESTION_KEY");
@@ -147,8 +155,14 @@ public class SingleQuestionStatsActivity extends Activity {
 		iscorrect ="";
 
 		for(int i = 0; i < attempts.size(); i++){
+			
+			if(Integer.parseInt(correct.get(i))== 1 ){
+				iscorrect += "YES" + "\n";
+			}
+			else{
+				iscorrect += "NO" + "\n";
+			}
 			answer += attempts.get(i) + "\n";
-			iscorrect += correct.get(i) + "\n";
 		}
 		setTitle("Question " + question.getID());
 
