@@ -101,7 +101,7 @@ public class AnswerScreenActivity extends Activity {
 			StrictMode.setThreadPolicy(policy);
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
-			String temp = "http://199.180.255.173/index.php/mobile/dealWithAnswer/" + user.getID() + "/" + listOfSections.get(0) + "/" + question.getID() + "/" + answer + "/" + correct;
+			String temp = "http://cse110.courses.asu.edu/index.php/mobile/dealWithAnswer/" + user.getID() + "/" + listOfSections.get(0) + "/" + question.getID() + "/" + answer + "/" + correct;
 			
 			post.setURI(new URI(temp));
 			HttpResponse httpResponse = defaultClient.execute(post);

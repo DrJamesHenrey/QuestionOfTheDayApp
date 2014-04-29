@@ -6,15 +6,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TAActivity" >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="208dp"
-        android:text="@string/hello_world" />
+    tools:context=".TAActivity"
+    android:descendantFocusability="beforeDescendants"
+  	android:focusableInTouchMode="true"  >
 
     <GridLayout
         android:id="@+id/gridLayout1"
@@ -45,5 +39,76 @@
             android:layout_gravity="fill_horizontal"
             android:text="Roster" />
     </GridLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="175dp"
+        android:layout_alignLeft="@+id/gridLayout1"
+        android:layout_alignRight="@+id/gridLayout1"
+        android:layout_below="@+id/RosterButton"
+        android:fadeScrollbars="false"
+        android:layout_marginTop="32dp" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/RosterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gridLayout1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/hello_world" />
+
+    <Button
+        android:id="@+id/RemoveButton"
+        style="@style/Theme.Cse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Remove Selected TAs" />
+
+    <Button
+        android:id="@+id/Button01"
+        style="@style/Theme.Cse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText1"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignRight="@+id/scrollView1"
+        android:layout_marginRight="26dp"
+        android:text="Add New TA" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:layout_toLeftOf="@+id/Button01"
+        android:ems="10" >
+
+        
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_below="@+id/Button01"
+        android:layout_marginLeft="18dp"
+        android:text="Enter TA's username"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

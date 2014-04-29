@@ -63,7 +63,7 @@ public class SettingsScreenActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp1 = "http://199.180.255.173/index.php/mobile/emailss/" + user.getUsername();
+			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/emailss/" + user.getUsername();
 			
 			post.setURI(new URI(temp1));
 			HttpResponse httpResponse = defaultClient.execute(post);
@@ -103,7 +103,7 @@ public class SettingsScreenActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp1 = "http://199.180.255.173/index.php/mobile/notifications/" + user.getUsername();
+			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/notifications/" + user.getUsername();
 			
 			post.setURI(new URI(temp1));
 			HttpResponse httpResponse = defaultClient.execute(post);
@@ -153,7 +153,7 @@ public class SettingsScreenActivity extends Activity {
 			    			HttpClient defaultClient =  new DefaultHttpClient();
 			    			HttpPost post = new HttpPost();
 			    			int n = 1;
-			    			String temp1 = "http://199.180.255.173/index.php/mobile/changeNoteSettings/" + user.getUsername() + "/" + n;
+			    			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/changeNoteSettings/" + user.getUsername() + "/" + n;
 			    			
 			    			post.setURI(new URI(temp1));
 			    			HttpResponse httpResponse = defaultClient.execute(post);
@@ -201,7 +201,7 @@ public class SettingsScreenActivity extends Activity {
 			    			HttpClient defaultClient =  new DefaultHttpClient();
 			    			HttpPost post = new HttpPost();
 			    			int n = 0;
-			    			String temp1 = "http://199.180.255.173/index.php/mobile/changeNoteSettings/" + user.getUsername() + "/" + n;
+			    			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/changeNoteSettings/" + user.getUsername() + "/" + n;
 			    			
 			    			post.setURI(new URI(temp1));
 			    			HttpResponse httpResponse = defaultClient.execute(post);
@@ -259,7 +259,7 @@ public class SettingsScreenActivity extends Activity {
 		    			HttpClient defaultClient =  new DefaultHttpClient();
 		    			HttpPost post = new HttpPost();
 		    			int n = 1;
-		    			String temp1 = "http://199.180.255.173/index.php/mobile/changeEmailSettings/" + user.getUsername() + "/" + n;
+		    			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/changeEmailSettings/" + user.getUsername() + "/" + n;
 		    			
 		    			post.setURI(new URI(temp1));
 		    			HttpResponse httpResponse = defaultClient.execute(post);
@@ -307,7 +307,7 @@ public class SettingsScreenActivity extends Activity {
 		    			HttpClient defaultClient =  new DefaultHttpClient();
 		    			HttpPost post = new HttpPost();
 		    			int n = 0;
-		    			String temp1 = "http://199.180.255.173/index.php/mobile/changeEmailSettings/" + user.getUsername() + "/" + n;
+		    			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/changeEmailSettings/" + user.getUsername() + "/" + n;
 		    			
 		    			post.setURI(new URI(temp1));
 		    			HttpResponse httpResponse = defaultClient.execute(post);

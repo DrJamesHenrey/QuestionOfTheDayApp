@@ -97,7 +97,7 @@ public class ProfessorHomeActivity extends Activity {
 				HttpClient defaultClient =  new DefaultHttpClient();
 				HttpPost post = new HttpPost();
 				
-				String temp1 = "http://199.180.255.173/index.php/mobile/getSectionsForCourse/" + coursesForProfessor.get(index);
+				String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/getSectionsForCourse/" + coursesForProfessor.get(index);
 				temp1 = temp1.replaceAll(" ", "%20");
 				
 				post.setURI(new URI(temp1));
@@ -226,7 +226,7 @@ private void initializeCourses() {
 			StrictMode.setThreadPolicy(policy);
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getCoursesForProfessor/" + user.getID()));
+			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getCoursesForProfessor/" + user.getID()));
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
