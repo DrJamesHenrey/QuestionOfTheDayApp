@@ -246,7 +246,7 @@ public class QestionDetailsActivity extends Activity {
 					HttpClient defaultClient =  new DefaultHttpClient();
 					HttpPost post = new HttpPost();
 					
-					String temp = "http://199.180.255.173/index.php/mobile/removeQuestion/" + section.getSectionID() + "/" + question.getID();
+					String temp = "http://cse110.courses.asu.edu/index.php/mobile/removeQuestion/" + section.getSectionID() + "/" + question.getID();
 					temp = temp.replaceAll(" ", "%20");
 ;
 					post.setURI(new URI(temp));

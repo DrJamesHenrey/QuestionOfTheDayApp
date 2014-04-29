@@ -266,7 +266,7 @@ public class SectionHomeActivity extends Activity {
 				HttpClient defaultClient =  new DefaultHttpClient();
 				HttpPost post = new HttpPost();
 
-				post.setURI(new URI("http://199.180.255.173/index.php/mobile/getRoster/" +  section2.getSectionID())); 
+				post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getRoster/" +  section2.getSectionID())); 
 				HttpResponse httpResponse = defaultClient.execute(post);
 				BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 				String json = ""; 
@@ -318,7 +318,7 @@ public class SectionHomeActivity extends Activity {
 						HttpClient defaultClient =  new DefaultHttpClient();
 						HttpPost post = new HttpPost();
 						System.out.println(studentlist.get(which));
-						post.setURI(new URI("http://199.180.255.173/index.php/mobile/getUserInfo/" + studentlist.get(which)));
+						post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getUserInfo/" + studentlist.get(which)));
 						HttpResponse httpResponse = defaultClient.execute(post);
 						BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 						String json = ""; 
@@ -397,7 +397,7 @@ public class SectionHomeActivity extends Activity {
 			HttpPost post = new HttpPost();
 			
 			
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getTopics/" +  section2.getSectionID())); 
+			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getTopics/" +  section2.getSectionID())); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 

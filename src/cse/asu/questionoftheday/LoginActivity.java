@@ -102,7 +102,7 @@ public class LoginActivity extends Activity {
 						StrictMode.setThreadPolicy(policy);
 						HttpClient defaultClient =  new DefaultHttpClient();
 						HttpPost post = new HttpPost();					
-						post.setURI(new URI("http://199.180.255.173/index.php/mobile/getPassword/" + username + "/" + password));
+						post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getPassword/" + username + "/" + password));
 						HttpResponse httpResponse = defaultClient.execute(post);
 						BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 						String json = ""; 
@@ -128,7 +128,7 @@ public class LoginActivity extends Activity {
 								StrictMode.setThreadPolicy(policy);
 								defaultClient =  new DefaultHttpClient();
 								post = new HttpPost();					
-								post.setURI(new URI("http://199.180.255.173/index.php/mobile/getUserInfo/" + username));
+								post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getUserInfo/" + username));
 								httpResponse = defaultClient.execute(post);
 								reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 								json = ""; 
@@ -158,7 +158,7 @@ public class LoginActivity extends Activity {
 									}
 								}
 								
-								post.setURI(new URI("http://199.180.255.173/index.php/mobile/isProfessor/" + username));
+								post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/isProfessor/" + username));
 								HttpResponse htpR = defaultClient.execute(post);
 								BufferedReader read = new BufferedReader(new InputStreamReader(htpR.getEntity().getContent(), "UTF-8"));
 								json = ""; 

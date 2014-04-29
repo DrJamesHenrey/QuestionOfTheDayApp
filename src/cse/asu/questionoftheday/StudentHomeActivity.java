@@ -116,7 +116,7 @@ public class StudentHomeActivity extends Activity
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp1 = "http://199.180.255.173/index.php/mobile/getNotAnsweredQuestions/" + user.getUsername() + "/" + listOfSections.get(0)+ "/0";
+			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/getNotAnsweredQuestions/" + user.getUsername() + "/" + listOfSections.get(0)+ "/0";
 			
 			post.setURI(new URI(temp1));
 			HttpResponse httpResponse = defaultClient.execute(post);
@@ -156,7 +156,7 @@ public class StudentHomeActivity extends Activity
 				HttpClient defaultClient =  new DefaultHttpClient();
 				HttpPost post = new HttpPost();
 				
-				String temp1 = "http://199.180.255.173/index.php/mobile/notifications/" + user.getUsername();
+				String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/notifications/" + user.getUsername();
 				
 				post.setURI(new URI(temp1));
 				HttpResponse httpResponse = defaultClient.execute(post);

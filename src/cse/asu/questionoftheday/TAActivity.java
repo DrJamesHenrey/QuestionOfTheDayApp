@@ -230,7 +230,7 @@ public class TAActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp = "http://199.180.255.173/index.php/mobile/getTAs/" + section.getSectionID();
+			String temp = "http://cse110.courses.asu.edu/index.php/mobile/getTAs/" + section.getSectionID();
 			temp = temp.replaceAll(" ", "%20");
 			post.setURI(new URI(temp));
 			HttpResponse httpResponse = defaultClient.execute(post);
@@ -307,7 +307,7 @@ public class TAActivity extends Activity {
 					HttpClient defaultClient =  new DefaultHttpClient();
 					HttpPost post = new HttpPost();
 					
-					String temp1 = "http://199.180.255.173/index.php/mobile/addNewTA/" + taUsername + "/" + section.getSectionID() ;
+					String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/addNewTA/" + taUsername + "/" + section.getSectionID() ;
 					temp1 = temp1.replaceAll(" ", "%20");
 					post.setURI(new URI(temp1));
 					HttpResponse httpResponse = defaultClient.execute(post);
@@ -393,7 +393,7 @@ public class TAActivity extends Activity {
 							HttpClient defaultClient =  new DefaultHttpClient();
 							HttpPost post = new HttpPost();
 							
-							String temp = "http://199.180.255.173/index.php/mobile/removeTA/" + userNames.get(index) +"/" + section.getSectionID();
+							String temp = "http://cse110.courses.asu.edu/index.php/mobile/removeTA/" + userNames.get(index) +"/" + section.getSectionID();
 							
 							post.setURI(new URI(temp));
 							HttpResponse httpResponse = defaultClient.execute(post);

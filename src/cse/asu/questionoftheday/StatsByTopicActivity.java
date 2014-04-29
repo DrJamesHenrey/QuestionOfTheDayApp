@@ -96,8 +96,8 @@ private void initializeStatistics(){
 		
 		System.out.println("2");
 
-		System.out.println("http://199.180.255.173/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID());
-		post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
+		System.out.println("http://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID());
+		post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
 		HttpResponse httpResponse = defaultClient.execute(post);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 		String json = ""; 

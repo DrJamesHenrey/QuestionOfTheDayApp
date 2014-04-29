@@ -227,14 +227,14 @@ public class CreateQuestionActivity extends Activity {
 								temp = question.getID() + "/" + top + "/" + prom + "/" + a + "/" + b + "/" + c + "/" + d + "/" + correctAnswer + "/" + hin + "/" + exp + "/" + section.getSectionID();
 								temp = temp.replaceAll("\\+", "%20");
 								System.out.println(temp);
-								post.setURI(new URI("http://199.180.255.173/index.php/mobile/editQuestion/" + temp));
+								post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/editQuestion/" + temp));
 								defaultClient.execute(post);
 							}
 							else
 							{
 								temp = top + "/" + prom + "/" + a + "/" + b + "/" + c + "/" + d + "/" + correctAnswer + "/" + hin + "/" + exp + "/" + section.getSectionID();
 								temp = temp.replaceAll("\\+", "%20");
-								post.setURI(new URI("http://199.180.255.173/index.php/mobile/createQuestion/" + temp));
+								post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/createQuestion/" + temp));
 								defaultClient.execute(post);
 							}
 							

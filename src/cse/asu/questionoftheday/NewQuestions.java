@@ -115,7 +115,7 @@ public class NewQuestions extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp1 = "http://199.180.255.173/index.php/mobile/getNotAnsweredQuestions/" + user.getUsername() + "/" + listOfSections.get(0)+ "/1";
+			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/getNotAnsweredQuestions/" + user.getUsername() + "/" + listOfSections.get(0)+ "/1";
 			
 			post.setURI(new URI(temp1));
 			HttpResponse httpResponse = defaultClient.execute(post);

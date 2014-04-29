@@ -233,7 +233,7 @@ public class StudentRosterActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 			
-			String temp = "http://199.180.255.173/index.php/mobile/getRoster/" + section.getSectionID();
+			String temp = "http://cse110.courses.asu.edu/index.php/mobile/getRoster/" + section.getSectionID();
 			
 			post.setURI(new URI(temp));
 			HttpResponse httpResponse = defaultClient.execute(post);
@@ -346,7 +346,7 @@ public class StudentRosterActivity extends Activity {
 							HttpClient defaultClient =  new DefaultHttpClient();
 							HttpPost post = new HttpPost();
 							
-							String temp = "http://199.180.255.173/index.php/mobile/removeStudent/" + userNames.get(index) +"/" + section.getSectionID();
+							String temp = "http://cse110.courses.asu.edu/index.php/mobile/removeStudent/" + userNames.get(index) +"/" + section.getSectionID();
 							
 							post.setURI(new URI(temp));
 							HttpResponse httpResponse = defaultClient.execute(post);

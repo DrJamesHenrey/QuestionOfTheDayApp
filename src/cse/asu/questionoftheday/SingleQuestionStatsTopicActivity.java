@@ -76,7 +76,7 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 			HttpPost post = new HttpPost();
 			userid = user.getID();
 
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getAttemptsAsStudent/" + userid + "/"+  listOfSections.get(0) +"/" + question.getID())); 
+			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getAttemptsAsStudent/" + userid + "/"+  listOfSections.get(0) +"/" + question.getID())); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
@@ -97,7 +97,7 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 				correct.add(cor);
 			}
 			
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestion/" + question.getID())); 
+			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID())); 
 			httpResponse = defaultClient.execute(post);
 			reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			
