@@ -99,24 +99,6 @@ public class ForgotPasswordActivity extends Activity
 							finish();
 						}
 						
-						
-						// If successful
-						/*if(json.equalsIgnoreCase("true"))
-						{
-							Toast.makeText(getApplicationContext(),
-			                        "Sent email with temporary password", Toast.LENGTH_LONG).show();
-							Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
-							//myIntent.putExtra("USER_KEY", user);
-							startActivity(myIntent);
-							finish();
-						}
-						// If failed
-						else
-						{
-							Toast.makeText(getApplicationContext(),
-			                        "User with Email does not exist.", Toast.LENGTH_LONG).show();	
-						}*/
-						
 					}
 					catch (Exception e)
 					{

@@ -108,7 +108,7 @@ public final class R {
         public static final int bText=0x7f080041;
         public static final int btnCancel=0x7f080050;
         public static final int btnNewUser=0x7f08007d;
-        public static final int btnRegister=0x7f08004f;
+        public static final int btnRegister=0x7f08004e;
         public static final int btnResetPassword=0x7f080030;
         public static final int c=0x7f080007;
         public static final int cField=0x7f080029;
@@ -157,7 +157,7 @@ public final class R {
         public static final int scrollView1=0x7f080000;
         public static final int scrollView2=0x7f080051;
         public static final int sectionHomeTest=0x7f080061;
-        public static final int spnSection=0x7f08004e;
+        public static final int spnSection=0x7f08004f;
         public static final int submit=0x7f080002;
         public static final int sunday=0x7f08007c;
         public static final int tableForButtons=0x7f08003b;
