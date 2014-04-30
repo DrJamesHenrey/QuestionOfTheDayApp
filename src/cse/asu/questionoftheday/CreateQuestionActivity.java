@@ -25,7 +25,6 @@ import com.example.cse.asu.questionoftheday.R.menu;
 import cse.asu.questionoftheday.model.Question;
 import cse.asu.questionoftheday.model.Section;
 import cse.asu.questionoftheday.model.User;
-
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -35,6 +34,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -289,8 +289,26 @@ public class CreateQuestionActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.create_question, menu);
+		getMenuInflater().inflate(R.menu.professor_home, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case R.id.menulogout:
+				
+				Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
+				//myIntent.putExtra("USER_KEY", user);
+				startActivity(myIntent);
+				finish(); //JON DONT REMOVE THIS. THIS WONT ALLOW STUDENT TO GO BACK TO LOGIN
+				break;
+			
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 }

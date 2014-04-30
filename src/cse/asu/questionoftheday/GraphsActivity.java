@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -160,8 +161,26 @@ public class GraphsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.graphs, menu);
+		getMenuInflater().inflate(R.menu.professor_home, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case R.id.menulogout:
+				
+				Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
+				//myIntent.putExtra("USER_KEY", user);
+				startActivity(myIntent);
+				finish(); //JON DONT REMOVE THIS. THIS WONT ALLOW STUDENT TO GO BACK TO LOGIN
+				break;
+			
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 }
