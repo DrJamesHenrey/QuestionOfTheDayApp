@@ -121,12 +121,6 @@ public final class R {
         public static final int dRadio=0x7f080027;
         public static final int dText=0x7f080043;
         public static final int editPropButton=0x7f08006a;
-        public static final int editText1=0x7f080049;
-        public static final int editText2=0x7f08004a;
-        public static final int editText3=0x7f080016;
-        public static final int editText4=0x7f08004b;
-        public static final int editText5=0x7f08004c;
-        public static final int editText6=0x7f08004d;
         public static final int email=0x7f08006d;
         public static final int expText=0x7f08000d;
         public static final int explanationButton=0x7f08000b;
@@ -187,7 +181,13 @@ public final class R {
         public static final int topicField=0x7f08001b;
         public static final int topicText=0x7f08001f;
         public static final int tuesday=0x7f080074;
+        public static final int txtConfirm=0x7f08004d;
+        public static final int txtEmail=0x7f080016;
+        public static final int txtFName=0x7f080049;
+        public static final int txtLName=0x7f08004a;
+        public static final int txtPassword=0x7f08004c;
         public static final int txtResetEmail=0x7f080031;
+        public static final int txtUsername=0x7f08004b;
         public static final int wednesday=0x7f080075;
         public static final int welcomeStudent=0x7f08006f;
     }
@@ -262,14 +262,20 @@ public final class R {
         public static final int transition=0x7f07001e;
     }
     public static final class string {
+        public static final int Confirm=0x7f05003a;
+        public static final int Email=0x7f050037;
+        public static final int FirstName=0x7f050035;
         public static final int ForgotPassword=0x7f050030;
+        public static final int LastName=0x7f050036;
         public static final int LoginButton=0x7f050003;
         public static final int MenuButton=0x7f050007;
         public static final int NewImage=0x7f05000c;
         public static final int NewUser=0x7f05002f;
+        public static final int Password=0x7f050039;
         public static final int ProfessorText=0x7f05000a;
         public static final int QestionsButton=0x7f050005;
         public static final int StatisticsButton=0x7f050006;
+        public static final int Username=0x7f050038;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int button1=0x7f050024;

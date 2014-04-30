@@ -83,14 +83,14 @@
         style="@style/Theme.Cse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignBaseline="@+id/txtFName"
+        android:layout_alignBottom="@+id/txtFName"
         android:layout_alignRight="@+id/scrollView1"
         android:layout_marginRight="26dp"
         android:text="Add New TA" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/txtFName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -105,7 +105,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignLeft="@+id/txtFName"
         android:layout_below="@+id/Button01"
         android:layout_marginLeft="18dp"
         android:text="Enter TA's username"

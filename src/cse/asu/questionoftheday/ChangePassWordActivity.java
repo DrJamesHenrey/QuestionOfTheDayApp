@@ -54,7 +54,7 @@ public class ChangePassWordActivity extends Activity {
 		
 		cPassw = (EditText) findViewById(R.id.UserNameTextField);
 		newPassw1 = (EditText) findViewById(R.id.PasswordTextField);
-		newPassw2 = (EditText) findViewById(R.id.editText3);
+		newPassw2 = (EditText) findViewById(R.id.txtEmail);
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		ArrayList<String> listOfSections = new ArrayList<String>(user.getListOfSections());

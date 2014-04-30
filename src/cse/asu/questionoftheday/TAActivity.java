@@ -60,7 +60,7 @@ public class TAActivity extends Activity {
 		setContentView(R.layout.activity_ta);
 		
 		setTitle("Question of the Day");
-		newTA = (EditText) findViewById(R.id.editText1);
+		newTA = (EditText) findViewById(R.id.txtFName);
 		add = (Button) findViewById(R.id.Button01);
 		rosterView = (TextView) findViewById(R.id.RosterButton);
 		Button qButton = (Button) findViewById(R.id.QButton);
