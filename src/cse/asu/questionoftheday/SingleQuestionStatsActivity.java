@@ -108,7 +108,10 @@ public class SingleQuestionStatsActivity extends Activity {
 				correct.add(cor);
 			}
 			
-			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID())); 
+			String temp3 = "http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID();
+			temp3 = temp3.replaceAll(" ", "%20");
+			post.setURI(new URI(temp3));
+			//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID())); 
 			httpResponse = defaultClient.execute(post);
 			reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			

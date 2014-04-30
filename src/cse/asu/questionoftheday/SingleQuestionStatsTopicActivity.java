@@ -89,7 +89,10 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 			HttpPost post = new HttpPost();
 			userid = user.getID();
 			
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID())); 
+			String temp4 = "http://cse110.courses.asu.edu/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID();
+			temp4 = temp4.replaceAll(" ", "%20");
+			post.setURI(new URI(temp4));
+			//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID())); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
@@ -112,8 +115,10 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 				correct.add(cor);
 			}
 
-			
-			post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestion/" + question.getID())); 
+			String temp3 = "http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID();
+			temp3 = temp3.replaceAll(" ", "%20");
+			post.setURI(new URI(temp3));
+			//post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestion/" + question.getID())); 
 			httpResponse = defaultClient.execute(post);
 			reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			
