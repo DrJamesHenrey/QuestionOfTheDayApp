@@ -130,6 +130,34 @@
             android:ems="10"
             android:inputType="textPassword" />
 
+        <Spinner
+            android:id="@+id/spnSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView6"
+            android:layout_alignRight="@+id/txtUsername"
+            android:layout_below="@+id/txtConfirm"
+            android:layout_marginTop="18dp" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spnSection"
+            android:layout_below="@+id/spnSection"
+            android:layout_marginTop="30dp"
+            android:text="@string/Register" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnRegister"
+            android:layout_alignBottom="@+id/btnRegister"
+            android:layout_alignRight="@+id/spnSection"
+            android:layout_marginRight="22dp"
+            android:text="@string/Cancel" />
+
     </RelativeLayout>
 
 </FrameLayout>

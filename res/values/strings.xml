@@ -60,5 +60,8 @@
     <string name="Username">Username</string>
     <string name="Password">Password</string>
     <string name="Confirm">Confirm</string>
+    <string name="Section">Section</string>
+    <string name="Register">Register</string>
+    <string name="Cancel">Cancel</string>
 
 </resources>
