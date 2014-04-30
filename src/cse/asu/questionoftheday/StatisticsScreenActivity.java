@@ -116,7 +116,10 @@ public class StatisticsScreenActivity extends Activity {
 			HttpClient defaultClient =  new DefaultHttpClient();
 			HttpPost post = new HttpPost();
 
-			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getGradesforStudent/" + listOfSections.get(0) + "/"+userid)); 
+			String temp2 = "http://cse110.courses.asu.edu/index.php/mobile/getGradesforStudent/" + listOfSections.get(0) + "/"+userid;
+			temp2 = temp2.replaceAll(" ", "%20");
+			post.setURI(new URI(temp2));
+			//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getGradesforStudent/" + listOfSections.get(0) + "/"+userid)); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 

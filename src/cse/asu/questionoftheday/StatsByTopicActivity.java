@@ -93,7 +93,11 @@ private void initializeStatistics(){
 		HttpClient defaultClient =  new DefaultHttpClient();
 		HttpPost post = new HttpPost();
 		
-		post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
+		
+		String temp2 = "http://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID();
+		temp2 = temp2.replaceAll(" ", "%20");
+		post.setURI(new URI(temp2));
+		//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
 		HttpResponse httpResponse = defaultClient.execute(post);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 		String json = ""; 
@@ -131,8 +135,11 @@ private void initializeStatistics(){
 		HttpClient defaultClient =  new DefaultHttpClient();
 		HttpPost post = new HttpPost();
 		
-
-		post.setURI(new URI("http://199.180.255.173/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic)); 
+		String temp2 = "http://cse110.courses.asu.edu/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic;
+		temp2 = temp2.replaceAll(" ", "%20");
+		post.setURI(new URI(temp2));
+		//post.setURI(new URI("http://199.180.255.173/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic)); 
+		
 		HttpResponse httpResponse = defaultClient.execute(post);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 		String json = ""; 
