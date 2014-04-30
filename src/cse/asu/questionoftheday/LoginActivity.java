@@ -199,8 +199,7 @@ public class LoginActivity extends Activity {
 					}
 					catch (Exception e)
 					{
-						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-								context);
+						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 				 
 							// set title
 							alertDialogBuilder.setTitle("Connection Error");

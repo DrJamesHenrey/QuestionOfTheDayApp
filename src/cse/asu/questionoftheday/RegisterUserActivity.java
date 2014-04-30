@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import com.example.cse.asu.questionoftheday.R;
 
+import cse.asu.questionoftheday.model.Section;
 import cse.asu.questionoftheday.model.User;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -61,8 +62,132 @@ public class RegisterUserActivity extends Activity {
 		confirmField = (EditText) findViewById(R.id.txtConfirm);
 		sectionSpinner = (Spinner) findViewById(R.id.spnSection);
 		
+		// Arraylist of sections
+		final ArrayList<Section> sections = new ArrayList<Section>();
+		
 		// Retrieve sections that are available
-		// .......
+		try
+		{
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+			HttpClient defaultClient =  new DefaultHttpClient();
+			HttpPost post = new HttpPost();
+			
+			String temp1 = "http://cse110.courses.asu.edu/index.php/mobile/getSections/";
+			temp1 = temp1.replaceAll(" ", "%20");
+			
+			post.setURI(new URI(temp1));
+			HttpResponse httpResponse = defaultClient.execute(post);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+			String json = ""; 
+			String temp = "";
+			
+			while ((temp = reader.readLine()) != null)
+			{
+				json += temp;
+			}
+			
+			Log.w("json", json);
+			
+			JSONArray array = new JSONArray(json);
+			
+			for(int i =0; i < array.length(); i++)
+			{
+				JSONObject object = (JSONObject) array.get(i);
+				String sectionID = (String) object.get("sectionID");
+				String courseID = (String) object.get("courseID");
+				//int professorID = Integer.parseInt((String) object.get("professorID"));
+				int professorID = 6;
+				int sendToProf = Integer.parseInt((String) object.get("sendToProf"));
+				int timeLimit = Integer.parseInt((String) object.get("timeLimit"));
+				String semester = (String) object.get("semester");
+				int sendingQuestions = Integer.parseInt((String) object.get("sendingQuestions"));
+				int canDrop = Integer.parseInt((String) object.get("canDrop"));
+				int meetMonday = Integer.parseInt((String) object.get("meetMonday"));
+				int meetTuesday = Integer.parseInt((String) object.get("meetTuesday"));
+				int meetWednesday = Integer.parseInt((String) object.get("meetWednesday"));
+				int meetThursday = Integer.parseInt((String) object.get("meetThursday"));
+				int meetFriday = Integer.parseInt((String) object.get("meetFriday"));
+				int meetSaturday = Integer.parseInt((String) object.get("meetSaturday"));
+				int meetSunday = Integer.parseInt((String) object.get("meetSunday"));
+				String time = (String) object.get("time");
+				String title = (String) object.get("name");
+				Section section = new Section(sectionID, courseID, professorID, sendToProf, timeLimit, semester, sendingQuestions, canDrop, meetMonday, meetTuesday, meetWednesday, meetThursday, meetFriday, meetSaturday, meetSunday, time, title);
+				sections.add(section);
+			}
+			
+			// Populate spinner
+			ArrayList<String> spinnerArray = new ArrayList<String>();
+			
+			for(int i=0; i < sections.size(); i++)
+			{
+				String str = "";
+				
+				if(sections.get(i).getMeetMonday() == 1)
+				{
+					str += "M";
+				}
+				if(sections.get(i).getMeetTuesday() == 1)
+				{
+					str += "T";
+				}
+				if(sections.get(i).getMeetWednesday() == 1)
+				{
+					str +="W";
+				}
+				if(sections.get(i).getMeetThursday() == 1)
+				{
+					str += "Th";
+				}
+				if(sections.get(i).getMeetFriday() == 1)
+				{
+					str += "F";
+				}
+				if(sections.get(i).getMeetSaturday() == 1)
+				{
+					str += "S";
+				}
+				if(sections.get(i).getMeetSunday() == 1)
+				{
+					str += "Su";
+				}
+				
+				//str += " " + sections.get(i).getTime() + "(" + sections.get(i).getProfessorID() + ")";
+				str += " " + sections.get(i).getTime() + " (navabi)";
+				
+				spinnerArray.add(str);
+			}
+			
+			ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, 
+					android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+			
+			sectionSpinner.setAdapter(spinnerArrayAdapter);
+		}
+		
+		catch (Exception e)
+		{
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+			 
+			// set title
+			alertDialogBuilder.setTitle("Connection Error");
+ 
+			// set dialog message
+			alertDialogBuilder
+				.setMessage("Please check your internet connection and try again")
+				.setCancelable(false)
+				.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						
+					}
+				  });
+ 
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				alertDialog.show();
+		}
+		
+		
+		
 		
 		
 		cancelButton.setOnClickListener(new View.OnClickListener()
@@ -99,7 +224,7 @@ public class RegisterUserActivity extends Activity {
             			String email = emailField.getText().toString().replaceAll("@", "%90");
             			String password = passwordField.getText().toString();
             			String confirmpass = confirmField.getText().toString();
-            			//String section = ** ADD CODE TO GET SECTION ID ** 
+            			String section = sections.get(sectionSpinner.getSelectedItemPosition()).getSectionID();
             			
             			
                 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -108,10 +233,11 @@ public class RegisterUserActivity extends Activity {
         				HttpPost post = new HttpPost();
         				
         				// Need to add section to the end
-        				String URL = "http://cse110.courses.asu.edu/index.php/mobile/createUser" + username + "/" + firstname + 
-        						"/" + lastname + "/" + email + "/" + password + "/" + confirmpass /* + "/" + section*/;
+        				String URL = "http://cse110.courses.asu.edu/index.php/mobile/createUser/" + username + "/" + firstname + 
+        						"/" + lastname + "/" + email + "/" + password + "/" + confirmpass  + "/" + section;
+        				Log.w("url", URL);
         				
-        				/*post.setURI(new URI(URL));
+        				post.setURI(new URI(URL));
         				HttpResponse httpResponse = defaultClient.execute(post);
         				BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
         				String json = ""; 
@@ -137,7 +263,7 @@ public class RegisterUserActivity extends Activity {
         				{
         					Toast toast = Toast.makeText(getApplicationContext(), json, Toast.LENGTH_SHORT);
         					toast.show();
-        				}*/
+        				}
         			}
         			catch (Exception e)
         			{
