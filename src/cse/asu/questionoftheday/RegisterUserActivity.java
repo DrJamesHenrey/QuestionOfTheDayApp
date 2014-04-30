@@ -111,7 +111,7 @@ public class RegisterUserActivity extends Activity {
         				String URL = "http://cse110.courses.asu.edu/index.php/mobile/createUser" + username + "/" + firstname + 
         						"/" + lastname + "/" + email + "/" + password + "/" + confirmpass /* + "/" + section*/;
         				
-        				post.setURI(new URI(URL));
+        				/*post.setURI(new URI(URL));
         				HttpResponse httpResponse = defaultClient.execute(post);
         				BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
         				String json = ""; 
@@ -137,7 +137,7 @@ public class RegisterUserActivity extends Activity {
         				{
         					Toast toast = Toast.makeText(getApplicationContext(), json, Toast.LENGTH_SHORT);
         					toast.show();
-        				}
+        				}*/
         			}
         			catch (Exception e)
         			{
