@@ -53,5 +53,6 @@
     <string name="logout">Log Out</string>
     <string name="title_activity_search_topic_questions">SearchTopicQuestions</string>
     <string name="title_activity_search_question_details">SearchQuestionDetailsActivity</string>
+    <string name="title_activity_register_user">RegisterUserActivity</string>
 
 </resources>

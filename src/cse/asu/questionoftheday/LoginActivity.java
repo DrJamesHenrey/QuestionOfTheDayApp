@@ -60,7 +60,6 @@ public class LoginActivity extends Activity {
         	public void onClick(View currentView)
         	{
         		Intent myIntent = new Intent(currentView.getContext(), ForgotPasswordActivity.class);
-				//myIntent.putExtra("USER_KEY", user);
 				startActivity(myIntent);
         	}
         });
@@ -70,7 +69,8 @@ public class LoginActivity extends Activity {
         {
         	public void onClick(View currentView)
         	{
-        		
+        		Intent myIntent = new Intent(currentView.getContext(), RegisterUserActivity.class);
+				startActivity(myIntent);
         	}
         });
         
