@@ -133,7 +133,7 @@ public class ProfessorHomeActivity extends Activity {
 					int meetSunday = Integer.parseInt((String) object.get("meetSunday"));
 					String time = (String) object.get("time");
 					String title = (String) object.get("title");
-					Section section = new Section(sectionID, courseID, professorID, sendToProf, timeLimit, semester, sendingQuestions, canDrop, meetMonday, meetTuesday, meetWednesday, meetThursday, meetFriday, meetSaturday, meetSunday, time, title);
+					Section section = new Section(sectionID, courseID, professorID, sendToProf, timeLimit, semester, sendingQuestions, canDrop, meetMonday, meetTuesday, meetWednesday, meetThursday, meetFriday, meetSaturday, meetSunday, time, title, "");
 					sections.add(section);
 					
 				}

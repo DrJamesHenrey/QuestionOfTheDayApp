@@ -96,7 +96,7 @@ public class RegisterUserActivity extends Activity {
 				JSONObject object = (JSONObject) array.get(i);
 				String sectionID = (String) object.get("sectionID");
 				String courseID = (String) object.get("courseID");
-				//int professorID = Integer.parseInt((String) object.get("professorID"));
+				String professorName = (String) object.get("professorID");
 				int professorID = 6;
 				int sendToProf = Integer.parseInt((String) object.get("sendToProf"));
 				int timeLimit = Integer.parseInt((String) object.get("timeLimit"));
@@ -112,7 +112,7 @@ public class RegisterUserActivity extends Activity {
 				int meetSunday = Integer.parseInt((String) object.get("meetSunday"));
 				String time = (String) object.get("time");
 				String title = (String) object.get("name");
-				Section section = new Section(sectionID, courseID, professorID, sendToProf, timeLimit, semester, sendingQuestions, canDrop, meetMonday, meetTuesday, meetWednesday, meetThursday, meetFriday, meetSaturday, meetSunday, time, title);
+				Section section = new Section(sectionID, courseID, professorID, sendToProf, timeLimit, semester, sendingQuestions, canDrop, meetMonday, meetTuesday, meetWednesday, meetThursday, meetFriday, meetSaturday, meetSunday, time, title, professorName);
 				sections.add(section);
 			}
 			
@@ -152,8 +152,8 @@ public class RegisterUserActivity extends Activity {
 					str += "Su";
 				}
 				
-				//str += " " + sections.get(i).getTime() + "(" + sections.get(i).getProfessorID() + ")";
-				str += " " + sections.get(i).getTime() + " (navabi)";
+				str += " " + sections.get(i).getTime() + " (" + sections.get(i).getProfName() + ")";
+				//str += " " + sections.get(i).getTime() + " Section: " + sections.get(i).getSectionID().toString();
 				
 				spinnerArray.add(str);
 			}

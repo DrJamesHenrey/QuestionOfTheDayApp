@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 public class Section implements Parcelable{
 	
-	private String sectionID, courseID, semester, time, title;
+	private String sectionID, courseID, semester, time, title, profName;
 	private int professorID, sendToProf, timeLimit, sendingQuestions, canDrop, meetMonday, meetTuesday, meetWednesday, meetThursday, meetFriday, meetSaturday, meetSunday;
 	
 	@Override
@@ -15,7 +15,7 @@ public class Section implements Parcelable{
 		return this.hashCode();
 	}
 	
-	public Section(String sectionID, String courseID, int professorID, int sendToProf, int timeLimit, String semester, int sendingQuestions, int canDrop, int meetMonday, int meetTuesday, int meetWednesday, int meetThursday, int meetFriday, int meetSaturday, int meetSunday, String time, String title)
+	public Section(String sectionID, String courseID, int professorID, int sendToProf, int timeLimit, String semester, int sendingQuestions, int canDrop, int meetMonday, int meetTuesday, int meetWednesday, int meetThursday, int meetFriday, int meetSaturday, int meetSunday, String time, String title, String name)
 	{
 		this.sectionID = sectionID;
 		this.courseID = courseID;
@@ -34,6 +34,7 @@ public class Section implements Parcelable{
 		this.meetSunday = meetSunday;
 		this.time = time;
 		this.title = title;
+		this.profName = name;
 	}
 	
 	public Section()
@@ -136,6 +137,10 @@ public class Section implements Parcelable{
 	public int getCanDrop()
 	{
 		return canDrop;
+	}
+	public String getProfName()
+	{
+		return profName;
 	}
 	
 	public int getMeetMonday()
