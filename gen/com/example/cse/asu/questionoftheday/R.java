@@ -64,13 +64,13 @@ public final class R {
     }
     public static final class id {
         public static final int AnswerText=0x7f080003;
-        public static final int Button01=0x7f080075;
+        public static final int Button01=0x7f080077;
         public static final int Edit=0x7f080047;
         public static final int ErrorText=0x7f08002f;
         public static final int ForgotPasswordButton=0x7f080037;
         public static final int LoginButton=0x7f080035;
         public static final int MenuButton=0x7f080010;
-        public static final int NewImage=0x7f080071;
+        public static final int NewImage=0x7f080073;
         public static final int NewUserButton=0x7f080036;
         public static final int PasswordTextField=0x7f080014;
         public static final int ProfessorText=0x7f08003c;
@@ -81,21 +81,21 @@ public final class R {
         public static final int RButton=0x7f080034;
         public static final int Remove=0x7f08003e;
         public static final int RemoveButton=0x7f08000c;
-        public static final int RosterButton=0x7f080074;
+        public static final int RosterButton=0x7f080076;
         public static final int SButton=0x7f080033;
         public static final int StatisticsButton=0x7f08000f;
         public static final int TopicHomeLayout=0x7f080060;
         public static final int TopicHomeText=0x7f08005f;
         public static final int TopicLayout=0x7f080039;
         public static final int TopicText=0x7f080038;
-        public static final int TransitionButton=0x7f08007f;
-        public static final int TransitionText=0x7f08007e;
+        public static final int TransitionButton=0x7f080081;
+        public static final int TransitionText=0x7f080080;
         public static final int UserNameTextField=0x7f080013;
         public static final int a=0x7f080005;
         public static final int aField=0x7f08002b;
         public static final int aRadio=0x7f080024;
         public static final int aText=0x7f080040;
-        public static final int action_settings=0x7f080080;
+        public static final int action_settings=0x7f080082;
         public static final int answerA2=0x7f080056;
         public static final int answerB2=0x7f080057;
         public static final int answerC2=0x7f080058;
@@ -107,7 +107,7 @@ public final class R {
         public static final int bRadio=0x7f080025;
         public static final int bText=0x7f080041;
         public static final int btnCancel=0x7f080050;
-        public static final int btnNewUser=0x7f08007d;
+        public static final int btnNewUser=0x7f08007f;
         public static final int btnRegister=0x7f08004e;
         public static final int btnResetPassword=0x7f080030;
         public static final int c=0x7f080007;
@@ -128,18 +128,20 @@ public final class R {
         public static final int explanationButton=0x7f08000b;
         public static final int explanationField=0x7f08001d;
         public static final int explanationText=0x7f080046;
-        public static final int friday=0x7f08007a;
+        public static final int friday=0x7f08007c;
         public static final int gridLayout1=0x7f08000e;
         public static final int hintField=0x7f08001e;
         public static final int hintText=0x7f080009;
         public static final int hintsText=0x7f080045;
-        public static final int imageView1=0x7f080073;
+        public static final int imageFromServer2=0x7f080072;
+        public static final int imageFromServer4=0x7f080071;
+        public static final int imageView1=0x7f080075;
         public static final int insideLayout=0x7f080062;
         public static final int linearLayout1=0x7f080055;
         public static final int linearLayout2=0x7f08005b;
-        public static final int menulogout=0x7f080081;
+        public static final int menulogout=0x7f080083;
         public static final int messageText=0x7f080063;
-        public static final int monday=0x7f080076;
+        public static final int monday=0x7f080078;
         public static final int newQs=0x7f08001a;
         public static final int note=0x7f08006f;
         public static final int password=0x7f08006e;
@@ -152,14 +154,14 @@ public final class R {
         public static final int relativeLayout3=0x7f08005a;
         public static final int relativeLayout4=0x7f08005c;
         public static final int retryB=0x7f08000a;
-        public static final int saturday=0x7f08007b;
+        public static final int saturday=0x7f08007d;
         public static final int save=0x7f080018;
         public static final int scrollView1=0x7f080000;
         public static final int scrollView2=0x7f080051;
         public static final int sectionHomeTest=0x7f080061;
         public static final int spnSection=0x7f08004f;
         public static final int submit=0x7f080002;
-        public static final int sunday=0x7f08007c;
+        public static final int sunday=0x7f08007e;
         public static final int tableForButtons=0x7f08003b;
         public static final int textView1=0x7f080012;
         public static final int textView12=0x7f080064;
@@ -179,11 +181,11 @@ public final class R {
         public static final int textView7=0x7f080023;
         public static final int textView8=0x7f080022;
         public static final int textView9=0x7f080021;
-        public static final int thursday=0x7f080079;
+        public static final int thursday=0x7f08007b;
         public static final int toggleHint=0x7f080001;
         public static final int topicField=0x7f08001b;
         public static final int topicText=0x7f08001f;
-        public static final int tuesday=0x7f080077;
+        public static final int tuesday=0x7f080079;
         public static final int txtConfirm=0x7f08004d;
         public static final int txtEmail=0x7f080016;
         public static final int txtFName=0x7f080049;
@@ -191,8 +193,8 @@ public final class R {
         public static final int txtPassword=0x7f08004c;
         public static final int txtResetEmail=0x7f080031;
         public static final int txtUsername=0x7f08004b;
-        public static final int wednesday=0x7f080078;
-        public static final int welcomeStudent=0x7f080072;
+        public static final int wednesday=0x7f08007a;
+        public static final int welcomeStudent=0x7f080074;
     }
     public static final class layout {
         public static final int activity_answer_page=0x7f030000;

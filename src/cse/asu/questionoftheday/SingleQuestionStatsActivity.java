@@ -1,8 +1,13 @@
 package cse.asu.questionoftheday;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -27,6 +32,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.text.Html;
 import android.view.Menu;
@@ -47,6 +54,8 @@ public class SingleQuestionStatsActivity extends Activity {
 	ArrayList<String> listOfSections;
 	int userid, questionid;
 	final Context context = this;
+	ImageView iv;
+	Bitmap bitmap;
 	
 
 
@@ -74,6 +83,7 @@ public class SingleQuestionStatsActivity extends Activity {
 		r2.setBackgroundColor(Color.LTGRAY);
 		RelativeLayout r3 = (RelativeLayout)findViewById(R.id.relativeLayout1);
 		r3.setBackgroundColor(Color.LTGRAY);
+
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		final StatQuestion question = (StatQuestion) getIntent().getExtras().getParcelable("QUESTION_KEY");
@@ -108,10 +118,7 @@ public class SingleQuestionStatsActivity extends Activity {
 				correct.add(cor);
 			}
 			
-			String temp3 = "http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID();
-			temp3 = temp3.replaceAll(" ", "%20");
-			post.setURI(new URI(temp3));
-			//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID())); 
+			post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID())); 
 			httpResponse = defaultClient.execute(post);
 			reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			
@@ -180,13 +187,17 @@ public class SingleQuestionStatsActivity extends Activity {
 		corrects.setText(iscorrect);
 		
 
+
+
 	
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.answer_page, menu);
 		return true;
 	}
+	
+
 
 }

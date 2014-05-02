@@ -92,7 +92,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="80dp"
-                    android:text="First Try" />
+                    android:text="Correct" />
 
             </RelativeLayout>
 
@@ -149,6 +149,13 @@
                     </LinearLayout>
                 </ScrollView>
             </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/imageFromServer4"
+                android:layout_width="match_parent"
+                android:layout_height="289dp"
+                android:src="@drawable/ab_solid_cse" />
+
         </LinearLayout>
     </ScrollView>
 

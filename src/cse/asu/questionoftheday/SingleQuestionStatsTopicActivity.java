@@ -1,8 +1,11 @@
 package cse.asu.questionoftheday;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -25,6 +28,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.text.Html;
 import android.view.Menu;
@@ -44,6 +49,9 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 	ArrayList<String> correct;
 	ArrayList<String> listOfSections;
 	int userid, questionid;
+	ImageView iv;
+	Bitmap bitmap;
+	Section section;
 
 	
 
@@ -76,9 +84,10 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 		
 		final User user = (User) getIntent().getExtras().getParcelable("USER_KEY");
 		final String topic =  getIntent().getExtras().getString("TOPIC_KEY");
-		final Section section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
+		section = (Section) getIntent().getExtras().getParcelable("SECTION_KEY");
 		final StatQuestion question = (StatQuestion) getIntent().getExtras().getParcelable("QUESTION_KEY");
 		listOfSections = new ArrayList<String>(user.getListOfSections());
+		questionid = question.getID();
 		
 
 
@@ -89,10 +98,7 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 			HttpPost post = new HttpPost();
 			userid = user.getID();
 			
-			String temp4 = "http://cse110.courses.asu.edu/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID();
-			temp4 = temp4.replaceAll(" ", "%20");
-			post.setURI(new URI(temp4));
-			//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID())); 
+			post.setURI(new URI("https://cse110.courses.asu.edu/index.php/mobile/getSingleQuestionTopicGrades/" + section.getSectionID() + "/"+  topic +"/" + question.getID())); 
 			HttpResponse httpResponse = defaultClient.execute(post);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			String json = ""; 
@@ -115,10 +121,8 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 				correct.add(cor);
 			}
 
-			String temp3 = "http://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID();
-			temp3 = temp3.replaceAll(" ", "%20");
-			post.setURI(new URI(temp3));
-			//post.setURI(new URI("http://199.180.255.173/index.php/mobile/getQuestion/" + question.getID())); 
+			
+			post.setURI(new URI("https://cse110.courses.asu.edu/index.php/mobile/getQuestion/" + question.getID())); 
 			httpResponse = defaultClient.execute(post);
 			reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 			
@@ -169,6 +173,11 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 		answers.setText(answer);
 		corrects.setText(iscorrect);
 		
+		iv = (ImageView) findViewById(R.id.imageFromServer4);
+		//bitmap = getBitmapFromURL("https://cse110.courses.asu.edu/index.php/mobile/transfereGraph");
+		bitmap = getBitmapFromURL("https://cse110.courses.asu.edu/jGraph/Pictures/topic_breakdown.png");
+		iv.setImageBitmap(bitmap);
+		
 
 	
 	}
@@ -177,6 +186,31 @@ public class SingleQuestionStatsTopicActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.answer_page, menu);
 		return true;
+	}
+	
+	public Bitmap getBitmapFromURL(String src){
+		try{
+			//
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+			HttpClient defaultClient =  new DefaultHttpClient();
+			HttpPost post = new HttpPost();
+			post.setURI(new URI("https://cse110.courses.asu.edu/index.php/mobile/transfereGraphProfessor" +"/"+ questionid + "/"+ section.getSectionID())); 
+			HttpResponse httpResponse = defaultClient.execute(post);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+			//
+			
+			URL url = new URL(src);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setDoInput(true);
+			connection.connect();
+			InputStream input = connection.getInputStream();
+			Bitmap myBitmap = BitmapFactory.decodeStream(input);
+			return myBitmap;
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 
 }

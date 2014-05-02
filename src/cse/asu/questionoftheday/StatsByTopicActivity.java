@@ -1,8 +1,11 @@
 package cse.asu.questionoftheday;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -31,11 +34,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -43,6 +48,7 @@ import android.widget.TextView;
 public class StatsByTopicActivity extends Activity {
 	TextView questionTit;
 	ArrayList<StatQuestion> questions;
+
 
 
 	
@@ -72,6 +78,8 @@ public class StatsByTopicActivity extends Activity {
 	
 	initializeStatistics();
 	populateButtons(questions, user);
+	
+
 }
 
 private void initializeStatistics(){
@@ -94,11 +102,7 @@ private void initializeStatistics(){
 		HttpClient defaultClient =  new DefaultHttpClient();
 		HttpPost post = new HttpPost();
 		
-		
-		String temp2 = "http://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID();
-		temp2 = temp2.replaceAll(" ", "%20");
-		post.setURI(new URI(temp2));
-		//post.setURI(new URI("http://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
+		post.setURI(new URI("https://cse110.courses.asu.edu/index.php/mobile/getQuestionStatsByTopic/" + topic + "/"+section.getSectionID() + "/" + user.getID())); 
 		HttpResponse httpResponse = defaultClient.execute(post);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 		String json = ""; 
@@ -136,11 +140,8 @@ private void initializeStatistics(){
 		HttpClient defaultClient =  new DefaultHttpClient();
 		HttpPost post = new HttpPost();
 		
-		String temp2 = "http://cse110.courses.asu.edu/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic;
-		temp2 = temp2.replaceAll(" ", "%20");
-		post.setURI(new URI(temp2));
-		//post.setURI(new URI("http://199.180.255.173/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic)); 
-		
+
+		post.setURI(new URI("https://cse110.courses.asu.edu/index.php/mobile/getOverallStatsonTopic/" + section.getSectionID() + "/"+ user.getID() + "/" + topic)); 
 		HttpResponse httpResponse = defaultClient.execute(post);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
 		String json = ""; 
@@ -240,29 +241,11 @@ private void populateButtons(final ArrayList<StatQuestion> questions, final User
 
 	
 
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
-	// Inflate the menu; this adds items to the action bar if it is present.
-	getMenuInflater().inflate(R.menu.professor_home, menu);
-	return true;
-}
-
-@Override
-public boolean onOptionsItemSelected(MenuItem item)
-{
-	switch(item.getItemId())
-	{
-		case R.id.menulogout:
-			
-			Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
-			//myIntent.putExtra("USER_KEY", user);
-			startActivity(myIntent);
-			finish(); //JON DONT REMOVE THIS. THIS WONT ALLOW STUDENT TO GO BACK TO LOGIN
-			break;
-		
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.stats_by_topic, menu);
+		return true;
 	}
-	
-	return super.onOptionsItemSelected(item);
-}
 
 }
