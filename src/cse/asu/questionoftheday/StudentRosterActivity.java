@@ -158,7 +158,7 @@ public class StudentRosterActivity extends Activity {
 			{
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setTitle("Statistics Menu");
-				builder.setItems(new CharSequence[] {"Statistics By Student Name", "Statistics By Topic", "Statistical Graphs"}, new DialogInterface.OnClickListener() {
+				builder.setItems(new CharSequence[] {"Statistics By Student Name", "Statistics By Topic"}, new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
