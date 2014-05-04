@@ -141,12 +141,6 @@ public class SectionHomeActivity extends Activity {
 							statByTopic(user, section);
 
 							break;
-						case 2:
-							Intent myIntent3 = new Intent(context, GraphsActivity.class);
-							myIntent3.putExtra("USER_KEY", user);
-							myIntent3.putExtra("SECTION_KEY", section);
-							startActivity(myIntent3);
-							break;
 						}
 						
 					}
@@ -348,12 +342,7 @@ public class SectionHomeActivity extends Activity {
 							}
 						}
 						student = new User(id, username, firstName, lastName, eMail, 1, listOfSections);						
-						System.out.println(student.getID());
-						System.out.println(student.getUsername());
-						System.out.println(student.getFirstName());
-						System.out.println(student.getLastName());
-						System.out.println(student.getEMail());
-						System.out.println(student.getListOfSections().get(0));
+
 
 					}
 
